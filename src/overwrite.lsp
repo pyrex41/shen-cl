@@ -156,6 +156,52 @@
         (cl-hamt:dict-remove (|shen.hamt-bindings| env) (svref pvar 1)))
   result)
 
+;;; Phase 4: O(1) hypothesis lookup via hash-table cache.
+;;;
+;;; The kernel's by-hypothesis walks the Hyp list linearly on every
+;;; variable lookup. We override it to build a hash-table from the Hyp
+;;; list and do O(1) lookups. The table is cached on the Hyp cons cell
+;;; so it's built once per unique Hyp extension (lambda/let adds one
+;;; entry at the front, creating a new cons cell).
+
+(defvar *hyp-table-cache* (make-hash-table :test 'eq)
+  "Maps a Hyp cons cell (by identity) to its precomputed hash-table.
+   The hash-table maps deref'd variable → type.")
+
+(defun shen-cl.hyp-table (hyp env)
+  "Return a hash-table for the hypothesis list Hyp.
+   Caches by the identity of the Hyp cons cell."
+  (or (gethash hyp *hyp-table-cache*)
+      (let ((table (make-hash-table :test 'equal)))
+        (do ((h hyp (cdr h)))
+            ((null h))
+          (let ((entry (|shen.lazyderef| (car h) env)))
+            (when (consp entry)
+              (let* ((var (|shen.deref| (car entry) env))
+                     (rest (cdr entry)))
+                (when (and (consp rest)
+                           (eq (|shen.lazyderef| (car rest) env) '|:|)
+                           (consp (cdr rest)))
+                  (let ((typ (cadr rest)))
+                    (setf (gethash var table) typ)))))))
+        (setf (gethash hyp *hyp-table-cache*) table)
+        table)))
+
+(defun |shen.by-hypothesis| (V5175 V5176 V5177 V5178 V5179 V5180 V5181)
+  "O(1) hypothesis lookup: hash-table keyed on deref'd variable."
+  (if (|shen-cl.true?| (|shen.unlocked?| V5179))
+      (let* ((hyp (|shen.lazyderef| V5177 V5178))
+             (x   (|shen.deref| V5175 V5178)))
+        (if (null hyp)
+            '|false|
+            (let ((table (shen-cl.hyp-table hyp V5178)))
+              (multiple-value-bind (typ found) (gethash x table)
+                (if found
+                    (progn (|shen.incinfs|)
+                           (|is!| V5176 typ V5178 V5179 V5180 V5181))
+                    '|false|)))))
+      '|false|))
+
 ;;; Phase 2: OR-parallel clause trying for the type checker hot paths.
 
 (defmacro safe-future (&body body)
