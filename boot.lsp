@@ -23,6 +23,12 @@
 ; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 ; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#+sbcl
+(progn
+  (load "~/quicklisp/setup.lisp")
+  (ql:quickload :cl-hamt :silent t)
+  (ql:quickload :lparallel :silent t))
+
 (load "src/package.lsp") ; Package code must be loaded before boot
                          ; code so that boot.lisp can be in the SHEN
                          ; package.
@@ -154,12 +160,11 @@
 (import-lsp compiled-path "init")
 (import-lsp compiled-path "extension-features")
 (import-lsp compiled-path "extension-launcher")
-(import-lsp compiled-path "extension-factorise-defun")
+(import-lsp compiled-path "stlib")
 (import-lsp source-path "overwrite")
 
 #-ecl
 (progn
- (|shen.x.factorise-defun.initialise|)
  (|shen.initialise|)
  (|shen-cl.initialise|)
  (|shen.x.features.initialise| '(
