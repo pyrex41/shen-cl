@@ -60,8 +60,7 @@
   (defvar |*os*| (or #+win32 "Windows" #+linux "Linux" #+DARWIN "macOS" #+unix "Unix" "Unknown"))
   (declaim (inline |write-byte|))
   (declaim (inline |read-byte|))
-  (declaim (inline |shen-cl.double-precision|))
-  (defvar *shen-lparallel-kernel* nil))
+  (declaim (inline |shen-cl.double-precision|)))
 
 (defmacro |if| (x y z)
   `(let ((*c* ,x))

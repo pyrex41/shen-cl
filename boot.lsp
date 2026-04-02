@@ -26,8 +26,7 @@
 #+sbcl
 (progn
   (load "~/quicklisp/setup.lisp")
-  (ql:quickload :cl-hamt :silent t)
-  (ql:quickload :lparallel :silent t))
+  (ql:quickload :cl-hamt :silent t))
 
 (load "src/package.lsp") ; Package code must be loaded before boot
                          ; code so that boot.lisp can be in the SHEN
