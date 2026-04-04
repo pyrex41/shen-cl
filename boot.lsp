@@ -105,11 +105,11 @@
   (let ((src-file (format nil "~A~A.lsp" location file))
         (lsp-file (format nil "~A~A.lsp" binary-path file))
         (fas-file (format nil "~A~A~A" binary-path file compiled-suffix)))
-    (|copy-file| src-file lsp-file)
+    (|shen-cl.boot-copy-file| src-file lsp-file)
     (compile-lsp file)
     (load fas-file)))
 
-(defun |copy-file| (src-file dest-file)
+(defun |shen-cl.boot-copy-file| (src-file dest-file)
   (with-open-file
     (in src-file
       :direction    :input
@@ -127,7 +127,7 @@
 
 (compile 'compile-lsp)
 (compile 'import-lsp)
-(compile '|copy-file|)
+(compile '|shen-cl.boot-copy-file|)
 
 (ensure-directories-exist binary-path)
 
@@ -170,7 +170,7 @@
 
 (fmakunbound 'compile-lsp)
 (fmakunbound 'import-lsp)
-(fmakunbound '|copy-file|)
+(fmakunbound '|shen-cl.boot-copy-file|)
 
 ;
 ; Implementation-Specific Executable Output

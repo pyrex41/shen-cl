@@ -51,6 +51,7 @@
   false -> "|false|"
   Comma -> "|,|" where (= Comma ,)
   Sym -> (symbol->string Sym) where (symbol? Sym)
+  S -> (make-string "~R" (build.escape-string S)) where (string? S)
   [Quote Exp] -> (@s "'" (sexp->string Exp)) where (= Quote (shen-cl.cl quote))
   [Sexp | Sexps] -> (@s "(" (concat-strings (map (/. X (sexp->string X))
                                                  [Sexp | Sexps]))
@@ -70,6 +71,17 @@
   S -> "|:|" where (= : S)
   S -> (@s "|" (str S) "|") where (build.cased-symbol? (explode S))
   S -> (str S))
+
+(define build.escape-string
+  S -> (build.escape-string-h (explode S)))
+
+(define build.escape-string-h
+  [] -> ""
+  [C | Cs] -> (@s (n->string 92) (n->string 92) (build.escape-string-h Cs))
+      where (= (string->n C) 92)
+  [C | Cs] -> (@s (n->string 92) C (build.escape-string-h Cs))
+      where (= (string->n C) 34)
+  [C | Cs] -> (@s C (build.escape-string-h Cs)))
 
 (define concat-strings
   [] -> ""
