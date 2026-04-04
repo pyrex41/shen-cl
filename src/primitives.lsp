@@ -108,13 +108,19 @@
   (intern (|shen-cl.process-intern| String)))
 
 (defun |shen-cl.process-intern| (S)
-  (cond
-    ((string-equal S "")          S)
-    ((string-equal (|pos| S 0) "#") (|cn| "_hash1957" (|shen-cl.process-intern| (|tlstr| S))))
-    ((string-equal (|pos| S 0) "'") (|cn| "_quote1957" (|shen-cl.process-intern| (|tlstr| S))))
-    ((string-equal (|pos| S 0) "`") (|cn| "_backquote1957" (|shen-cl.process-intern| (|tlstr| S))))
-    ((string-equal (|pos| S 0) "|") (|cn| "bar!1957" (|shen-cl.process-intern| (|tlstr| S))))
-    (T                            (|cn| (|pos| S 0) (|shen-cl.process-intern| (|tlstr| S))))))
+  (declare (type string S))
+  (let ((len (length S)))
+    (if (zerop len)
+        S
+        (with-output-to-string (out)
+          (loop for i from 0 below len
+                for c = (char S i)
+                do (cond
+                     ((char= c #\#) (write-string "_hash1957" out))
+                     ((char= c #\') (write-string "_quote1957" out))
+                     ((char= c #\`) (write-string "_backquote1957" out))
+                     ((char= c #\|) (write-string "bar!1957" out))
+                     (t (write-char c out))))))))
 
 (defun |eval-kl| (X)
   (let ((e (eval (|shen-cl.kl->lisp| x))))
@@ -270,13 +276,23 @@
     (t             (error "~S is not an atom, stream or closure; str cannot convert it to a string.~%" x))))
 
 (defun |shen-cl.process-number| (S)
-  (cond
-    ((string-equal S "")
-     "")
-    ((string-equal (|pos| S 0) "d")
-     (if (string-equal (|pos| S 1) "0") "" (|cn| "e" (|tlstr| S))))
-    (T
-     (|cn| (|pos| S 0) (|shen-cl.process-number| (|tlstr| S))))))
+  (declare (type string S))
+  (let ((len (length S)))
+    (if (zerop len)
+        ""
+        (with-output-to-string (out)
+          (loop with i = 0
+                while (< i len)
+                for c = (char S i)
+                do (cond
+                     ((char= c #\d)
+                      (if (and (< (1+ i) len) (char= (char S (1+ i)) #\0))
+                          (return "")
+                          (progn (write-char #\e out)
+                                 (loop for j from (1+ i) below len
+                                       do (write-char (char S j) out))
+                                 (return))))
+                     (t (write-char c out) (incf i))))))))
 
 (defun |shen-cl.prefix?| (str prefix)
   (let ((prefix-length (length prefix)))
@@ -299,13 +315,27 @@
     (intern lispname)))
 
 (defun |shen-cl.process-string| (x)
-  (cond
-    ((string-equal x "")                    x)
-    ((|shen-cl.prefix?| x "_hash1957")      (|cn| "#" (|shen-cl.process-string| (subseq x 9))))
-    ((|shen-cl.prefix?| x "_quote1957")     (|cn| "'" (|shen-cl.process-string| (subseq x 10))))
-    ((|shen-cl.prefix?| x "_backquote1957") (|cn| "`" (|shen-cl.process-string| (subseq x 14))))
-    ((|shen-cl.prefix?| x "bar!1957")       (|cn| "|" (|shen-cl.process-string| (subseq x 8))))
-    (t                                      (|cn| (|pos| x 0) (|shen-cl.process-string| (|tlstr| x))))))
+  (declare (type string x))
+  (let ((len (length x)))
+    (if (zerop len)
+        x
+        (with-output-to-string (out)
+          (loop with i = 0
+                while (< i len)
+                do (cond
+                     ((and (<= (+ i 9) len)
+                           (string= x "_hash1957" :start1 i :end1 (+ i 9)))
+                      (write-char #\# out) (incf i 9))
+                     ((and (<= (+ i 10) len)
+                           (string= x "_quote1957" :start1 i :end1 (+ i 10)))
+                      (write-char #\' out) (incf i 10))
+                     ((and (<= (+ i 14) len)
+                           (string= x "_backquote1957" :start1 i :end1 (+ i 14)))
+                      (write-char #\` out) (incf i 14))
+                     ((and (<= (+ i 8) len)
+                           (string= x "bar!1957" :start1 i :end1 (+ i 8)))
+                      (write-char #\| out) (incf i 8))
+                     (t (write-char (char x i) out) (incf i))))))))
 
 (defun |get-time| (time)
   (cond

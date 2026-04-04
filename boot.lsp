@@ -23,11 +23,6 @@
 ; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 ; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#+sbcl
-(progn
-  (load "~/quicklisp/setup.lisp")
-  (ql:quickload :cl-hamt :silent t))
-
 (load "src/package.lsp") ; Package code must be loaded before boot
                          ; code so that boot.lisp can be in the SHEN
                          ; package.

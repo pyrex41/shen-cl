@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
-**Updated to Shen Open Source Kernel 22.3**
+**Updated to Shen Open Source Kernel 41.1**
 
 ### Fixed
 
