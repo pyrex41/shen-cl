@@ -153,6 +153,7 @@
 (import-lsp compiled-path "t-star")
 (import-lsp compiled-path "init")
 (import-lsp compiled-path "extension-features")
+(import-lsp compiled-path "extension-expand-dynamic")
 (import-lsp compiled-path "extension-launcher")
 (import-lsp compiled-path "stlib")
 (import-lsp source-path "overwrite")
