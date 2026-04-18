@@ -1,0 +1,123 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to build (blank = build HEAD without releasing)'
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.platform }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            platform: linux-x86_64
+          - os: ubuntu-24.04-arm
+            platform: linux-aarch64
+          - os: macos-14
+            platform: macos-arm64
+          - os: macos-13
+            platform: macos-x86_64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install SBCL (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends sbcl curl
+
+      - name: Install SBCL (macOS)
+        if: runner.os == 'macOS'
+        run: brew install sbcl
+
+      - name: Install Quicklisp + BT + USOCKET
+        shell: bash
+        run: |
+          curl -fsSL -o /tmp/quicklisp.lisp https://beta.quicklisp.org/quicklisp.lisp
+          sbcl --non-interactive --load /tmp/quicklisp.lisp \
+               --eval '(quicklisp-quickstart:install)' \
+               --eval "(let ((ql-util::*do-not-prompt* t)) (ql:add-to-init-file))" \
+               --eval '(ql:quickload (list :bordeaux-threads :usocket))'
+
+      - name: Fetch ShenOSKernel
+        run: make fetch
+
+      - name: Build shen-cl (BT + USOCKET pre-loaded)
+        shell: bash
+        run: |
+          sbcl --non-interactive \
+               --load "$HOME/quicklisp/setup.lisp" \
+               --eval '(require :sb-posix)' \
+               --eval '(ql:quickload (list :bordeaux-threads :usocket))' \
+               --load boot.lsp
+
+      - name: Test
+        run: make test-sbcl
+
+      - name: Package
+        shell: bash
+        run: |
+          mkdir -p release
+          VERSION="${GITHUB_REF_NAME:-$(git rev-parse --short HEAD)}"
+          STAGE_PARENT="$(mktemp -d)"
+          STAGE_NAME="shen-cl-${VERSION}-${{ matrix.platform }}"
+          STAGE="$STAGE_PARENT/$STAGE_NAME"
+          mkdir -p "$STAGE"
+          cp bin/sbcl/shen "$STAGE/"
+          cp LICENSE.txt "$STAGE/"
+          ARCHIVE="shen-cl-${VERSION}-${{ matrix.platform }}-prebuilt.tar.gz"
+          tar -czf "release/$ARCHIVE" -C "$STAGE_PARENT" "$STAGE_NAME"
+          ls -la "release/$ARCHIVE"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform }}
+          path: release/*
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    name: Publish release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release
+          merge-multiple: true
+
+      - name: List artifacts
+        run: ls -la release/
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PREV_TAG="$(git tag --sort=-v:refname | sed -n '2p')"
+          if [ -n "$PREV_TAG" ]; then
+            gh release create "${GITHUB_REF_NAME}" release/* \
+              --title "${GITHUB_REF_NAME}" \
+              --generate-notes \
+              --notes-start-tag "$PREV_TAG"
+          else
+            gh release create "${GITHUB_REF_NAME}" release/* \
+              --title "${GITHUB_REF_NAME}" \
+              --generate-notes
+          fi
