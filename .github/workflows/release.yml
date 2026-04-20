@@ -28,7 +28,12 @@ jobs:
             platform: macos-arm64
           - os: macos-13
             platform: macos-x86_64
+            experimental: true
     runs-on: ${{ matrix.os }}
+    # macos-13 (x86_64) runners are chronically backlogged on free public-repo
+    # tiers. Don't let them block a release — if the job can't grab a runner
+    # in time, GitHub cancels it and downstream jobs still proceed.
+    continue-on-error: ${{ matrix.experimental == true }}
     steps:
       - uses: actions/checkout@v4
 
