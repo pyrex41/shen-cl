@@ -28,9 +28,9 @@
 #     asserting shen-go's clean-EOF behaviour the port does not have.
 #   * bad subcommand: shen-go exits non-zero; the shen-cl launcher prints
 #     "Invalid argument" but exits 0. We assert the message (the real contract).
-#   * quiet (-q) pr-to-file: SBCL writes pr to file streams regardless of -q;
-#     the CLISP build SILENCES pr to file streams under -q (write-byte is
-#     unaffected on both). We assert per-impl accordingly.
+#   * quiet (-q) pr-to-file: ALL builds now write pr to file streams
+#     regardless of -q (Shen issue #2 fix); write-byte is unaffected on all.
+#     We assert the SAME corrected behaviour for every impl.
 
 set -u
 
@@ -152,20 +152,18 @@ test_impl() { # IMPL
     *) ok "$impl: adversarial eval did not leak a Lisp backtrace" ;;
   esac
 
-  # --- quiet (-q) pr-to-file (the ratatoskr stage-1 regression + divergence) ---
-  # DIVERGENCE: under -q (which sets *hush*), only the SBCL build still writes
-  # (pr STR FileStream); the CLISP and ECL builds SILENCE pr to file streams
-  # (zero-byte file). (write-byte ... FileStream) is unaffected on ALL builds.
+  # --- quiet (-q) pr-to-file (the ratatoskr stage-1 regression; Shen issue #2) ---
+  # FIXED: under -q (which sets *hush*), every build now still writes
+  # (pr STR FileStream) -- *hush* must not silence pr to a file stream. SBCL/CCL
+  # bypassed the KL pr via a native write-string override; ECL now shares it; the
+  # CLISP build (whose file streams are byte streams) uses a write-byte override
+  # that likewise ignores *hush*. (write-byte ... FileStream) is unaffected on ALL
+  # builds. We assert the SAME corrected behaviour for every impl.
   rm -f "$tmp/q.txt"
   run_bounded 60 $bin eval -q -e \
     "(let S (open \"$tmp/q.txt\" out) (do (pr \"payload\" S) (close S)))" >/dev/null 2>&1
   local content=""; [ -f "$tmp/q.txt" ] && content="$(cat "$tmp/q.txt")"
-  case "$impl" in
-    sbcl)
-      assert_eq "payload" "$content" "$impl: -q does NOT suppress pr to a file stream" ;;
-    clisp|ecl)
-      assert_eq "" "$content" "$impl: -q silences pr to a file stream (CLISP/ECL divergence)" ;;
-  esac
+  assert_eq "payload" "$content" "$impl: -q does NOT suppress pr to a file stream (issue #2)"
   # write-byte to a file is unaffected by -q on ALL impls (impl-independent).
   rm -f "$tmp/wb.txt"
   run_bounded 60 $bin eval -q -e \

@@ -9,12 +9,15 @@
 \\ *home-directory* is "" in the built image, so the path passes through open
 \\ unchanged. Loaded after tests/test-harness.shen by run-port-tests.shen.
 \\
-\\ CROSS-IMPL *hush* DIVERGENCE (verified, locked in below): with *hush* = true,
-\\ (pr STR FileStream) is SILENCED on the CLISP build (it produces a zero-byte
-\\ file) but written on the SBCL build. (write-byte ... FileStream) is written
-\\ on BOTH regardless of *hush*. The port test runner loads under *hush* = true
-\\ for quiet output, so these pr-based round trips explicitly clear *hush*
-\\ first; otherwise the CLISP run would read back empty files.
+\\ *hush* / pr-to-file (Shen issue #2, FIXED): with *hush* = true,
+\\ (pr STR FileStream) is now WRITTEN on every build -- *hush* must not silence
+\\ pr to a file stream. (Previously the CLISP and ECL builds ran the kernel KL pr,
+\\ which returns early under *hush* and so produced a zero-byte file; SBCL/CCL
+\\ already bypassed it via a native override. The fix gives ECL the same override
+\\ and gives CLISP a byte-stream override that likewise ignores *hush*.)
+\\ (write-byte ... FileStream) was always written regardless of *hush*.
+\\ The port test runner loads under *hush* = true, so the round trips below clear
+\\ *hush* first only to keep them independent of the runner's quiet flag.
 
 (set *hush* false)
 
@@ -64,11 +67,19 @@
               _ (close In)
            B))
 
-\\ Lock in the *hush*/pr-to-file divergence as an explicit assertion:
-\\ under *hush* = true, (pr ... FileStream) writes on SBCL but is silenced on
-\\ CLISP; (write-byte ... FileStream) writes on BOTH. We assert only the
-\\ impl-independent fact -- write-byte is never silenced by *hush* -- so this
-\\ holds across SBCL/CLISP/ECL.
+\\ Regression for Shen issue #2: under *hush* = true, (pr STR FileStream) must
+\\ still WRITE -- the file must read back the payload, not be empty -- on every
+\\ build (SBCL/CLISP/ECL). This is the assertion the fix corrects.
+(assert= "pr to a file stream ignores *hush* (issue #2)"
+         "payload"
+         (let _ (set *hush* true)
+              Out (open "tests/io-hush-pr.tmp" out)
+              _ (pr "payload" Out)
+              _ (close Out)
+              _ (set *hush* false)
+           (read-file-as-string "tests/io-hush-pr.tmp")))
+
+\\ write-byte was never silenced by *hush*; assert it still holds across impls.
 (assert= "write-byte ignores *hush*"
          [88]
          (let _ (set *hush* true)
