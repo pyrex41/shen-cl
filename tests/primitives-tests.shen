@@ -83,6 +83,21 @@
 (assert-caught "vector out-of-range read"
                (freeze (<-address (absvector 3) 9)))
 
+\\ --- absvector size cap (Shen issue #3) ---
+\\ An excessive size must raise a CATCHABLE Shen error, NOT an uncatchable
+\\ heap-exhaustion abort that takes down the whole image. The exact form from
+\\ the issue: (trap-error (absvector HUGE) (lambda E true)) must return true.
+(assert-true "absvector huge size is catchable (issue #3)"
+             (trap-error (absvector 100000000000) (lambda E true)))
+(assert-caught "absvector over-cap raises a catchable error (issue #3)"
+               (freeze (absvector 100000000000)))
+\\ A negative size is likewise rejected catchably rather than aborting.
+(assert-caught "absvector negative size is catchable (issue #3)"
+               (freeze (absvector -1)))
+\\ The cap is far above any legitimate use: a generous allocation still works.
+(assert-true "absvector large-but-legal size still allocates (issue #3)"
+             (absvector? (absvector 1000000)))
+
 \\ --- logic ---
 (assert-false "not true"  (not true))
 (assert-true  "not false" (not false))
