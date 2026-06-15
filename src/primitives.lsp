@@ -443,6 +443,16 @@
      (|shen.initialise|)
      (|shen-cl.initialise|)
      (|shen.x.features.initialise| '(|shen/cl| |shen/cl.ecl|))
+     ;; Process stdlib datatypes before registering its macros; see the
+     ;; long comment in boot.lsp's shen-cl.initialise-stlib for why.
+     (|stlib.initialise-environment|)
+     (|stlib.initialise-arities|)
+     (|stlib.initialise-synonyms|)
+     (|stlib.initialise-datatypes|)
+     (|stlib.initialise-macros|)
+     (|stlib.initialise-types|)
+     (|stlib.initialise-sources|)
+     (|stlib.initialise-final|)
      (|shen-cl.toplevel-interpret-args| (si:command-args)))
 
     #+sbcl

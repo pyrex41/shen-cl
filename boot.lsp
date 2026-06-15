@@ -170,6 +170,27 @@
 (import-lsp compiled-path "stlib")
 (import-lsp source-path "overwrite")
 
+;; Initialise the standard library (maths, vectors, strings, pretty-print, ...).
+;;
+;; The kernel's own stlib.initialise registers the stdlib macros *before* it
+;; processes the stdlib datatypes. That order is broken: the Vectors module
+;; overloads ':=' as an array-assignment macro, but ':=' is also the type
+;; checker's internal side-condition operator. Compiling the maths/print
+;; datatypes (whose rules read (value <global>)) emits ':=' side conditions,
+;; and the registered vector macro hijacks them -> "cannot macro expand the
+;; dimensional argument". The official Shen distribution avoids this by load
+;; order (Maths/maths.shen before Vectors/macros.shen), so we mirror it here:
+;; process datatypes before registering macros.
+(defun |shen-cl.initialise-stlib| ()
+  (|stlib.initialise-environment|)
+  (|stlib.initialise-arities|)
+  (|stlib.initialise-synonyms|)
+  (|stlib.initialise-datatypes|)
+  (|stlib.initialise-macros|)
+  (|stlib.initialise-types|)
+  (|stlib.initialise-sources|)
+  (|stlib.initialise-final|))
+
 #-ecl
 (progn
  (|shen.initialise|)
@@ -179,7 +200,8 @@
    #+clisp |shen/cl.clisp|
    #+sbcl  |shen/cl.sbcl|
    #+ccl   |shen/cl.ccl|
- )))
+ ))
+ (|shen-cl.initialise-stlib|))
 
 (fmakunbound 'compile-lsp)
 (fmakunbound 'import-lsp)
