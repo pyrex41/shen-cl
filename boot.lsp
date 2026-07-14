@@ -170,29 +170,25 @@
 (import-lsp compiled-path "extension-features")
 (import-lsp compiled-path "extension-expand-dynamic")
 (import-lsp compiled-path "extension-launcher")
-(import-lsp compiled-path "stlib")
+;; ECL only: the precompiled community stlib.kl graft (SBCL/CLISP install the
+;; standard library from Tarver's StLib sources instead -- see below).
+#+ecl (import-lsp compiled-path "stlib")
 (import-lsp source-path "overwrite")
 
-;; Initialise the standard library (maths, vectors, strings, pretty-print, ...).
+;; Install the standard library from Tarver's canonical StLib SOURCES, exactly
+;; as his own install.lsp does: run kernel/lib/StLib/install.shen through the
+;; freshly built image (it typechecks + loads each module and declares the
+;; stlib externals as system functions). On SBCL/CLISP this state is then baked
+;; into the saved image; see the ECL note in src/primitives.lsp.
 ;;
-;; The kernel's own stlib.initialise registers the stdlib macros *before* it
-;; processes the stdlib datatypes. That order is broken: the Vectors module
-;; overloads ':=' as an array-assignment macro, but ':=' is also the type
-;; checker's internal side-condition operator. Compiling the maths/print
-;; datatypes (whose rules read (value <global>)) emits ':=' side conditions,
-;; and the registered vector macro hijacks them -> "cannot macro expand the
-;; dimensional argument". The official Shen distribution avoids this by load
-;; order (Maths/maths.shen before Vectors/macros.shen), so we mirror it here:
-;; process datatypes before registering macros.
+;; This replaces the former community stlib.kl graft. Tarver's install.shen
+;; order already loads the Maths datatypes before Vectors/macros.shen, so the
+;; ':=' vector-macro-vs-typechecker hazard that forced a custom ordering under
+;; the community stlib is avoided by construction.
 (defun |shen-cl.initialise-stlib| ()
-  (|stlib.initialise-environment|)
-  (|stlib.initialise-arities|)
-  (|stlib.initialise-synonyms|)
-  (|stlib.initialise-datatypes|)
-  (|stlib.initialise-macros|)
-  (|stlib.initialise-types|)
-  (|stlib.initialise-sources|)
-  (|stlib.initialise-final|))
+  (|cd| "kernel/lib/StLib/")
+  (|load| "install.shen")
+  (|cd| ""))
 
 #-ecl
 (progn

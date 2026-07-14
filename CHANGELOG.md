@@ -25,6 +25,15 @@ expand-dynamic/stlib grafts). See
 - Provenance doc recording the source URL, 2026-07-11 Last-Modified, sha256,
   the standalone `install.lsp` canary result, and the SBCL test status.
 
+### Changed (standard library from Tarver source)
+
+- SBCL and CLISP now install the standard library from Tarver's canonical StLib
+  sources (`kernel/lib/StLib`, run via his `install.shen`) baked into the saved
+  image at build time, retiring the community `stlib.kl` graft on those hosts.
+  ECL alone keeps the precompiled `stlib.kl` (its `c:build-program` cannot bake
+  image state, and per-launch source install costs ~105s); imported under
+  `#+ecl` only. See [docs/KERNEL-PROVENANCE-tarver-s41.2.md](docs/KERNEL-PROVENANCE-tarver-s41.2.md).
+
 ### Changed (for the S41.2 refresh)
 
 - `src/compiler.shen`: disabled the `(trap-error (get ..) ..) -> shen-cl.get/or`

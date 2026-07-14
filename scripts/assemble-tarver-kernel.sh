@@ -88,15 +88,35 @@ for f in core declarations load macros prolog reader sequent sys t-star \
   cp "$TARVER_DIR/KLambda/$f.kl" "$KERNEL/klambda/$f.kl"
 done
 
-# Community grafts Tarver dropped but shen-cl still needs.
-for f in extension-features extension-expand-dynamic extension-launcher stlib; do
+# Community extensions Tarver dropped but shen-cl still needs. NOTE: stlib.kl
+# is NO LONGER grafted -- the standard library is now installed from Tarver's
+# canonical StLib SOURCES at build time (see below and boot.lsp). The launcher
+# is a deliberate, documented community-sourced extension: Tarver's
+# distribution ships no non-interactive CLI, and ratatoskr stage-1 depends on
+# `eval -l file -e expr`.
+for f in extension-features extension-expand-dynamic extension-launcher; do
   cp "$COMMUNITY_DIR/klambda/$f.kl" "$KERNEL/klambda/$f.kl"
 done
 
-# Language-agnostic Shen trees from the community release.
+# stlib.kl: ECL ONLY. SBCL and CLISP install the standard library from Tarver's
+# canonical StLib sources baked into the saved image (see below + boot.lsp).
+# ECL's c:build-program cannot bake image state, and loading the sources at
+# startup costs ~105s (ECL C-compiles each definition on load), so ECL alone
+# keeps the precompiled community stlib.kl graft. Retiring it needs a
+# StLib->.lsp packager (fleet follow-up). This is the one stdlib divergence
+# across implementations.
+cp "$COMMUNITY_DIR/klambda/stlib.kl" "$KERNEL/klambda/stlib.kl"
+
+# Language-agnostic Shen trees from the community release (tests + extensions).
 cp -R "$COMMUNITY_DIR/tests"      "$KERNEL/tests"
-cp -R "$COMMUNITY_DIR/lib"        "$KERNEL/lib"
 cp -R "$COMMUNITY_DIR/extensions" "$KERNEL/extensions"
 
-echo "Assembled hybrid kernel at $KERNEL"
+# Standard library: Tarver's canonical StLib sources (typechecked + loaded into
+# the image at build time by boot.lsp, exactly as Tarver's own install.lsp
+# does). Canonical source: pyrex41/shen-upstream tag s41.2-pristine-20260711,
+# Lib/StLib. Replaces the former community stlib.kl graft.
+mkdir -p "$KERNEL/lib"
+cp -R "$TARVER_DIR/Lib/StLib" "$KERNEL/lib/StLib"
+
+echo "Assembled kernel at $KERNEL (SBCL/CLISP: StLib from Tarver source; ECL: stlib.kl graft)"
 echo "Next: make precompile SHEN=<working-shen> && make build-sbcl"
