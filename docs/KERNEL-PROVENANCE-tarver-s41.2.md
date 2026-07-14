@@ -93,10 +93,22 @@ The shen-cl `src/` side was adapted for the refresh (see
 `src/overwrite.lsp`, `src/compiler.shen`, `boot.lsp`, `scripts/build.shen`):
 the `get -> shen-cl.get/or` peephole was disabled (it assumed a hash-table
 property store), the `hash` override was removed (the vector store buckets by
-the kernel `hash`), boot load order now puts `t-star` before `types`, and four
-dropped-`init.kl` functions are shimmed: `shen.repl` (aliased to `shen.shen`),
-a no-op `shen.initialise`, `shen.set-lambda-form-entry`, and
+the kernel `hash`), boot load order was aligned to Tarver's `install.lsp`, and
+four dropped-`init.kl` functions are shimmed: `shen.repl` (aliased to
+`shen.shen`), a no-op `shen.initialise`, `shen.set-lambda-form-entry`, and
 `shen.toplevel-display-exception`.
+
+**Load order: read `install.lsp`, not `make.shen`.** The refreshed `types.kl`
+runs ~161 top-level `(declare ..)` forms at load that invoke the typechecker;
+they need globals set by `declarations.kl`, macro machinery from `macros.kl`,
+and `shen.rectify-type` (moved into `t-star.kl`). So `declarations` must
+precede `types`, and `t-star` must also precede `types`. `make.shen` gives the
+`.shen` *compile* order, which is NOT a valid `.kl` *load* order. Tarver's
+`install.lsp` is the authoritative runtime loader; `boot.lsp` now follows it
+(`sys writer core reader declarations toplevel macros load prolog sequent track
+t-star yacc types`, declarations 5th, types last). This is single-pass and
+needs no two-phase boot (independently confirmed green by shen-rust
+pyrex41/shen-rust#9 and shen-lua pyrex41/shen-lua#36).
 
 ## Status (SBCL, macOS SBCL 2.6.2)
 
