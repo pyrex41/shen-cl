@@ -56,6 +56,46 @@
           ((and |shen-cl.in-repl?| (eq stream |*stinput*|)) (|cl.exit| 0))
           (t ""))))
 
+;; Tarver's S41.2 (2026-07-11) refresh renamed the REPL entrypoint
+;; shen.repl -> shen.shen (identical body: (do (shen.credits) (shen.loop))).
+;; Alias it back so shen-cl's launcher and startup keep their shen.repl name.
+(unless (fboundp '|shen.repl|)
+  (setf (symbol-function '|shen.repl|) (symbol-function '|shen.shen|)))
+
+;; Tarver's S41.2 (2026-07-11) refresh has no shen.initialise function: the
+;; global environment (set *property-vector* (vector 20000), the arity table,
+;; system symbols, etc.) is initialised by load-time top-level forms in
+;; declarations.kl, which have already run by the time boot.lsp's init block or
+;; the startup path calls (shen.initialise). Provide a no-op so those calls
+;; remain valid without re-running (or double-running) initialisation.
+(unless (fboundp '|shen.initialise|)
+  (setf (symbol-function '|shen.initialise|)
+        (lambda () '|shen.initialise|)))
+
+;; shen.toplevel-display-exception also lived in the dropped init.kl. Tarver's
+;; refreshed shen.loop inlines the same body (pr the error string + newline)
+;; rather than naming a function. shen-cl's launcher and REPL error handlers
+;; (src/primitives.lsp) still call it by name, so restore it.
+(unless (fboundp '|shen.toplevel-display-exception|)
+  (setf (symbol-function '|shen.toplevel-display-exception|)
+        (lambda (e)
+          (|pr| (|error-to-string| e) (|stoutput|))
+          (|nl| 0))))
+
+;; Tarver's S41.2 (2026-07-11) refresh dropped init.kl, whose
+;; shen.set-lambda-form-entry recorded a macro's lambda form under the
+;; shen.lambda-form property. The refreshed kernel does not use that property
+;; (macro expansion runs through shen.*macros*), but the retained community
+;; extensions (features, expand-dynamic) still call it. Restore it with the
+;; community body so those extensions initialise; the stored property is inert
+;; under the refreshed kernel but preserves introspection semantics.
+(unless (fboundp '|shen.set-lambda-form-entry|)
+  (setf (symbol-function '|shen.set-lambda-form-entry|)
+        (lambda (v)
+          (if (consp v)
+              (|put| (car v) '|shen.lambda-form| (cdr v) |*property-vector*|)
+              (|shen.f-error| '|shen.set-lambda-form-entry|)))))
+
 ;; Run the kernel REPL with shen-cl.in-repl? bound, so the input layer
 ;; (read-byte / shen.read-unit-string) can exit cleanly when the REPL's stdin
 ;; reaches EOF (a closed pipe / Ctrl-D). Canonical Shen loops forever here;
@@ -217,8 +257,16 @@
 (defun |thaw| (f)
   (funcall f))
 
-(defun |hash| (val bound)
-  (mod (sxhash val) bound))
+;; NOTE (Tarver S41.2 2026-07-11 refresh): do NOT override hash here.
+;; The refreshed kernel's global property store (put/get in sys.kl) buckets
+;; entries by (hash key (limit *property-vector*)), and the kernel populates it
+;; via top-level (put ..) forms at load time using the kernel's own hash
+;; (shen.hashkey + shen.mod, which never returns 0 -- index 0 holds the vector
+;; length). A native (mod (sxhash val) bound) override produces different bucket
+;; indices (and can return 0), so every property written before this file loads
+;; becomes unreachable ("shen has no attributes: ..."). Using the kernel hash
+;; everywhere keeps put and get consistent. (Under community 41.x the property
+;; store was a CL hash-table via shen.dict, so overriding hash was harmless.)
 
 (defun |shen.dict| (size)
   (make-hash-table :size size))

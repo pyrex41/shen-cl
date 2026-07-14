@@ -8,6 +8,37 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+**Experimental: build against Mark Tarver's refreshed S41.2 kernel (2026-07-11)**
+
+Tarver re-uploaded a restructured kernel under the same "41.2" version number
+to shenlanguage.org (a different lineage from the community `shen-41.2`
+release). This branch adapts the shen-cl harness to build against it as a
+hybrid (Tarver's shared KLambda files + community launcher/features/
+expand-dynamic/stlib grafts). See
+[docs/KERNEL-PROVENANCE-tarver-s41.2.md](docs/KERNEL-PROVENANCE-tarver-s41.2.md).
+
+### Added
+
+- `scripts/assemble-tarver-kernel.sh` and the `make fetch-tarver` target,
+  which fetch Tarver's S41.2 refresh (sha256-pinned) plus the community
+  `shen-41.2` grafts and assemble the hybrid `kernel/` tree.
+- Provenance doc recording the source URL, 2026-07-11 Last-Modified, sha256,
+  the standalone `install.lsp` canary result, and the SBCL test status.
+
+### Changed (for the S41.2 refresh)
+
+- `src/compiler.shen`: disabled the `(trap-error (get ..) ..) -> shen-cl.get/or`
+  peephole; the refreshed kernel's property store is a bucketed absvector, not
+  a CL hash-table.
+- `src/overwrite.lsp`: removed the `hash` override (the vector store buckets by
+  the kernel `hash`); shimmed four functions the refresh dropped with `init.kl`
+  (`shen.repl` aliased to `shen.shen`, no-op `shen.initialise`,
+  `shen.set-lambda-form-entry`, `shen.toplevel-display-exception`).
+- `boot.lsp` / `scripts/build.shen`: dropped `dict`/`init` from the file lists
+  (native dicts; init folded into `declarations.kl`), and moved `t-star` before
+  `types` in boot load order (the refreshed `types.kl` calls `shen.rectify-type`
+  at load time, which the refresh defines in `t-star.kl`).
+
 **Updated to Shen Open Source Kernel 41.1**
 
 ### Added

@@ -133,6 +133,15 @@ else
 	mv $(KernelFolderName) kernel
 endif
 
+# Assemble the hybrid kernel for Mark Tarver's refreshed S41.2 distribution
+# (2026-07-11, shenlanguage.org). Unlike `fetch`, this is NOT a shen-sources
+# github release: it combines Tarver's restructured KLambda with the community
+# launcher/features/expand-dynamic/stlib grafts. See
+# docs/KERNEL-PROVENANCE-tarver-s41.2.md.
+.PHONY: fetch-tarver
+fetch-tarver:
+	scripts/assemble-tarver-kernel.sh
+
 #
 # Precompilation into Lisp code
 #
