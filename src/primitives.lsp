@@ -451,13 +451,19 @@
     ;; The factorise-defun kernel extension was dropped (its optimization
     ;; is implemented natively in overwrite.lsp), so unlike older releases
     ;; there is no extension initialise call here.
+    ;; ECL builds via c:build-program, which links object files rather than
+    ;; dumping an image. Unlike SBCL/CLISP (which bake Tarver's StLib sources
+    ;; into the saved image at build time -- see boot.lsp), ECL cannot bake that
+    ;; runtime state, and loading the StLib sources at startup costs ~105s
+    ;; (ECL C-compiles each definition on load). So ECL alone retains the
+    ;; precompiled community stlib.kl graft (baked into the object files,
+    ;; replayed cheaply here). Retiring it needs a StLib->.lsp packager; see
+    ;; docs/KERNEL-PROVENANCE-tarver-s41.2.md.
     #+ecl
     (progn
      (|shen.initialise|)
      (|shen-cl.initialise|)
      (|shen.x.features.initialise| '(|shen/cl| |shen/cl.ecl|))
-     ;; Process stdlib datatypes before registering its macros; see the
-     ;; long comment in boot.lsp's shen-cl.initialise-stlib for why.
      (|stlib.initialise-environment|)
      (|stlib.initialise-arities|)
      (|stlib.initialise-synonyms|)

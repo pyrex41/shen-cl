@@ -36,6 +36,12 @@
        "extension-launcher"
        "stlib"
        ])
+\\ NOTE on "stlib": SBCL and CLISP install the standard library from Tarver's
+\\ canonical StLib sources at build time (boot.lsp loads kernel/lib/StLib/
+\\ install.shen into the saved image) and do NOT import this compiled stlib.lsp.
+\\ It is precompiled solely for ECL, whose c:build-program cannot bake
+\\ image-loaded state; boot.lsp imports it only under #+ecl. See boot.lsp and
+\\ docs/KERNEL-PROVENANCE-tarver-s41.2.md.
 
 (set *shen-cl-files* ["compiler"])
 
