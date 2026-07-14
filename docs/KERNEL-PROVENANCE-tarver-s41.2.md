@@ -110,23 +110,39 @@ t-star yacc types`, declarations 5th, types last). This is single-pass and
 needs no two-phase boot (independently confirmed green by shen-rust
 pyrex41/shen-rust#9 and shen-lua pyrex41/shen-lua#36).
 
-## Status (SBCL, macOS SBCL 2.6.2)
+## Status (macOS, arm64)
 
-| Check | Result |
-|---|---|
-| `make precompile` (against refreshed KLambda) | pass |
-| `make build-sbcl` | pass |
-| REPL smoke (arith, map, define/recursion, stlib) | pass |
-| Launcher CLI `eval -e` and `eval -q -l file -e expr` | pass |
-| Kernel test suite `runme.shen` | 134/134 (100%) |
-| Compiler golden tests | pre-existing drift on master (unrelated); get/or case updated |
-| clisp / ccl / ecl builds | not yet tested |
+Per-implementation, building the same hybrid kernel + `compiled/*.lsp`:
+
+| Implementation | Build | Kernel suite `runme.shen` | Launcher / stlib |
+|---|---|---|---|
+| SBCL 2.6.2 | pass | 134/134 | `eval -e` + `eval -q -l file -e expr`, REPL, clean EOF |
+| GNU CLISP 2.49.92 | pass | 134/134 | `eval -l file -e expr` + stlib (see clisp `-q` note) |
+| ECL 26.5.5 | pass | 134/134 | `eval -e`, `eval -l file -e expr` + stlib |
+| CCL | out of scope | — | no native Apple-Silicon build (see ratatoskr README) |
+
+Notes:
+- Compiler golden tests: pre-existing drift on master (`1+`/`EQUALP` mismatches
+  and a `let-NIL` crash reproduce identically on the community-41.1 binary),
+  unrelated to this change; the `get/or` assertion was updated for the disabled
+  peephole.
+- clisp intercepts a bare `-q` in its own runtime arg parser (clisp has a native
+  `-q`), so `eval -q ...` swallows the result there; `eval -l file -e expr`
+  works. Unrelated to the kernel refresh; ratatoskr uses SBCL as host.
+
+## Verified as ratatoskr's stage-1 host
+
+Using this branch's SBCL binary as `$RATATOSKR_HOST`,
+`ratatoskr shake tests/fib.shen` produces `kernel.kl` = **54 defuns / 13.4 KB**
+(the documented figure) plus `fib.kl` + manifest
+(`kernel-version=41.2-s41r.20260711`). This is the designated same-lineage
+stage-1 host of record.
 
 ## Known remaining work
 
 - Port stlib and the launcher to Tarver's native mechanisms so the hybrid
   grafts can be retired (currently community-lineage files kept alongside the
-  refreshed kernel).
-- Test/verify the clisp, ccl and ecl builds.
+  refreshed kernel). This is the same interim compromise every fleet port took;
+  the StLib-from-source pass is a coordinated fleet-wide follow-up.
 - Decide whether to vendor the assembled kernel in-tree (Tarver's upstream is
   re-uploaded in place and unversioned) rather than fetch it.
