@@ -465,6 +465,12 @@
 (defun |shen-cl.toplevel| ()
   (let ((*package* (find-package :shen)))
 
+    ;; Advertise the host SHA-256 backend from the running process. SBCL/CLISP
+    ;; bake the environment into the saved image at build time, so this cannot
+    ;; move to boot.lsp without freezing SHEN_X_SHA256 at whoever built it.
+    ;; ECL initialises the Shen environment further down and installs there.
+    #-ecl (|shen-cl.install-sha256-host|)
+
     #+clisp
     (handler-bind ((warning #'muffle-warning))
       (with-open-stream (*standard-input* (ext:make-stream :input :element-type 'unsigned-byte))
@@ -502,6 +508,7 @@
      (|stlib.initialise-types|)
      (|stlib.initialise-sources|)
      (|stlib.initialise-final|)
+     (|shen-cl.install-sha256-host|)
      (|shen-cl.toplevel-interpret-args| (si:command-args)))
 
     #+sbcl

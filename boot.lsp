@@ -146,6 +146,7 @@
 (import-lsp source-path "package")
 (import-lsp source-path "primitives")
 (import-lsp source-path "native")
+(import-lsp source-path "sha256")
 (import-lsp source-path "shen-utils")
 (import-lsp compiled-path "compiler")
 ;; Load order follows Tarver's S41.2 (2026-07-11) install.lsp: t-star must
