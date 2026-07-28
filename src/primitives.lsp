@@ -143,8 +143,26 @@
 (defmacro |freeze| (x)
   `(function (lambda () ,x)))
 
+;; Sanity cap on absvector size (Shen issue #3). Without it, (absvector HUGE)
+;; asks make-array for an array far larger than the heap, which SBCL reports as
+;; an *uncatchable* "Heap exhausted" abort -- trap-error cannot recover from it,
+;; so a single bad size takes down the whole image. The cap is ~16.7 million
+;; slots (2^24), which is over 800x the largest vector the kernel itself ever
+;; allocates (the 20000-slot property dictionary), so it cannot break any
+;; legitimate kernel or program use; anything beyond it raises a catchable Shen
+;; error instead of crashing. shen-go applies the same kind of cap.
+(defconstant |shen-cl.max-absvector-size| (expt 2 24))
+
+;; Elements start as the fail sentinel so that reading an unset slot via
+;; <-vector signals "not found", matching the official S41.1 port and
+;; Shen/Scheme. (|fail|) is kernel-defined and only called at runtime,
+;; after the kernel has loaded.
 (defun |absvector| (n)
-  (make-array n))
+  (if (and (integerp n) (>= n 0) (<= n |shen-cl.max-absvector-size|))
+      (make-array n :initial-element (|fail|))
+      (|simple-error|
+        (format nil "absvector size ~A out of range (0..~A)~%"
+                n |shen-cl.max-absvector-size|))))
 
 (defun |absvector?| (x)
   (if (and (arrayp x) (not (stringp x)))
@@ -260,10 +278,17 @@
   nil)
 
 (defun |pos| (x n)
-  (coerce (list (char x n)) 'string))
+  (cond
+    ((not (stringp x))
+     (error "~A is not a string~%" x))
+    ((or (not (integerp n)) (minusp n) (>= n (length x)))
+     (error "~A is not a natural number less than the length of the string~%" n))
+    (t (string (char x n)))))
 
 (defun |tlstr| (x)
-  (subseq x 1))
+  (if (and (stringp x) (plusp (length x)))
+      (subseq x 1)
+      (error "~S is not a non-empty string~%" x)))
 
 (defun |cn| (str1 str2)
   (declare (type string str1) (type string str2))
@@ -273,10 +298,15 @@
   (if (stringp s) '|true| '|false|))
 
 (defun |n->string| (n)
-  (format nil "~C" (code-char n)))
+  (let ((c (and (integerp n) (not (minusp n)) (< n char-code-limit) (code-char n))))
+    (if c
+        (string c)
+        (error "~A is not a natural number~%" n))))
 
 (defun |string->n| (s)
-  (char-code (car (coerce s 'list))))
+  (if (and (stringp s) (= 1 (length s)))
+      (char-code (char s 0))
+      (error "~S is not a unit string~%" s)))
 
 (defun |str| (x)
   (cond
