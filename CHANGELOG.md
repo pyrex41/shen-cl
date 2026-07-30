@@ -48,6 +48,21 @@ expand-dynamic/stlib grafts). See
   `types` in boot load order (the refreshed `types.kl` calls `shen.rectify-type`
   at load time, which the refresh defines in `t-star.kl`).
 
+### Fixed
+
+- Compiling a function that destructures a moderately large literal pattern
+  (e.g. a ~100-leaf record) no longer exhausts SBCL's 1GB heap. The kernel's
+  pattern compiler re-derives the full `hd`/`tl` accessor chain for every
+  pattern element, so the emitted code grew with pattern-size × pattern-depth
+  and the host compiler's cost grew far faster than that (~800MB consed for a
+  12k-node form on SBCL). `eval-kl` now runs the KL→Lisp output through an
+  accessor-chain binding pass (`shen-cl.bind-accessor-chains` in
+  `src/primitives.lsp`) that computes each `CAR`/`CDR` step once, binds it to
+  a function-local via an inline `SETQ` at its first occurrence, and
+  references it thereafter — semantics, evaluation order and results are
+  unchanged, and precompiled kernel sources (`compiled/*.lsp`) are
+  byte-identical. Regression-tested by `tests/pattern-tests.shen`.
+
 **Updated to Shen Open Source Kernel 41.1**
 
 ### Added
