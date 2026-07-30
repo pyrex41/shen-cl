@@ -209,10 +209,29 @@
       (let ((head (car e)))
         (cond
           ((or (not (symbolp head))
-               (member head '(quote function go declare tagbody setq
+               (member head '(quote function go declare setq
                               lambda |lambda| |freeze|)))
            ;; Literals and closures: leave the whole form untouched.
            (values e env env))
+          ((eq head 'tagbody)
+           ;; (TAGBODY {tag | statement}*), emitted by the pattern
+           ;; factoriser's fallthrough join. A statement can also be
+           ;; reached via GO from a sibling statement, so bindings made
+           ;; in one statement are never guaranteed on entry to another:
+           ;; walk each compound statement with the tagbody's entry env,
+           ;; pass tags (atoms) through, and let nothing escape (GO may
+           ;; skip any suffix of a statement, and TAGBODY's value is NIL).
+           ;; Within a single statement the usual guarded-reuse rules
+           ;; hold: control only enters a statement at its beginning.
+           (values (cons 'tagbody
+                         (mapcar (lambda (s)
+                                   (if (atom s)
+                                       s
+                                       (multiple-value-bind (s2)
+                                           (shen-cl.acc-walk s env scope)
+                                         s2)))
+                                 (cdr e)))
+                   env env))
           ((member head '(car cdr))
            (shen-cl.acc-walk-chain head (second e) env scope))
           ((eq head 'and) (shen-cl.acc-walk-and e env scope))
