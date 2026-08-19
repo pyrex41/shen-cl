@@ -116,8 +116,8 @@ run: run-sbcl
 # Dependency retrieval
 #
 
-.PHONY: fetch
-fetch:
+.PHONY: fetch-community
+fetch-community:
 ifeq ($(OSName),windows)
 	$(PS) "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
 	       Invoke-WebRequest -Uri $(KernelArchiveUrl) -OutFile $(KernelArchiveName)"
@@ -133,14 +133,20 @@ else
 	mv $(KernelFolderName) kernel
 endif
 
+# `fetch` assembles the supported hybrid kernel.  The raw community archive
+# has an older init/declarations split and is retained only as an explicit
+# legacy target for users who need its unmodified tree.
+.PHONY: fetch
+fetch:
+	scripts/assemble-tarver-kernel.sh
+
 # Assemble the hybrid kernel for Mark Tarver's refreshed S41.2 distribution
-# (2026-07-11, shenlanguage.org). Unlike `fetch`, this is NOT a shen-sources
-# github release: it combines Tarver's restructured KLambda with the community
-# launcher/features/expand-dynamic/stlib grafts. See
+# (2026-07-11, shenlanguage.org). Unlike the raw `fetch-community` target,
+# this is NOT a shen-sources github release: it combines Tarver's restructured
+# KLambda with the community launcher/features/expand-dynamic grafts. See
 # docs/KERNEL-PROVENANCE-tarver-s41.2.md.
 .PHONY: fetch-tarver
-fetch-tarver:
-	scripts/assemble-tarver-kernel.sh
+fetch-tarver: fetch
 
 #
 # Precompilation into Lisp code
