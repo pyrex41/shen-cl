@@ -32,7 +32,7 @@ under a dated tag:
 
 > The kernel itself is proven sound independently of this port: the shen-swift
 > stage-2 target boots all 15 KLambda files on its KL interpreter
-> (`*version*` = "41.2", 12/12 tests), and the ratatoskr shake of it works
+> (`*version*` = "41.2", 12/12 tests), and the yggdrasil shake of it works
 > cross-lineage on the community-41.2 shen-cl host. Treat any *build* failure of
 > this integration as harness/lineage-fit, not a kernel defect.
 
@@ -47,7 +47,7 @@ t-star, toplevel, track, types, writer, yacc`.
 
 **Removed vs community 41.2**: `compiler.kl` (shen-cl generates its own),
 `dict.kl`, `init.kl`, `stlib.kl`, and every `extension-*.kl` (including the
-launcher CLI shen-cl/ratatoskr depend on). Notable renames/moves:
+launcher CLI shen-cl/yggdrasil depend on). Notable renames/moves:
 `hush -> shen.hush`, `input+ -> shen.input-h+/shen.process-input+`,
 `shen.initialise-lambda-forms -> shen.initialise-lambda-tables`, the REPL
 entry `shen.repl -> shen.shen`, and the global property store moved from a
@@ -62,7 +62,7 @@ It produced `sbcl-shen.exe`, `(+ 2 3)` = 5, `(version)` = "41.2", the standard
 library typechecks and loads. (It loops on stdin EOF -- the long-standing
 `shen.shen` behaviour, unrelated to the build.)
 
-**Is the canary image usable as a ratatoskr stage-1 host?** Not as-is. Its
+**Is the canary image usable as a yggdrasil stage-1 host?** Not as-is. Its
 saved toplevel is `shen.shen` (an interactive REPL). Piping
 `(load "f.shen")` + an expression over stdin does evaluate correctly
 (`(sq 9)` = 81), but the stock image (a) has no non-interactive launcher CLI
@@ -83,7 +83,7 @@ launcher, features and expand-dynamic extensions, which the refresh dropped.
   **Tarver's refresh**.
 - **extension-features, extension-expand-dynamic, extension-launcher** — kept
   from the **community `shen-41.2`** release. The launcher is deliberate:
-  Tarver's distribution ships no non-interactive CLI, and ratatoskr stage-1
+  Tarver's distribution ships no non-interactive CLI, and yggdrasil stage-1
   depends on `eval -l file -e expr`.
 - **StLib (standard library)** — Tarver's **canonical StLib sources** (mirror
   `pyrex41/shen-upstream`, tag `s41.2-pristine-20260711`, `Lib/StLib`), copied
@@ -149,7 +149,7 @@ Per-implementation, building the same hybrid kernel + `compiled/*.lsp`:
 | SBCL 2.6.2 | pass | 134/134 | Tarver source (baked) | `factorial`/`take`/`uppercase`, `eval -e`/`-q -l -e`, REPL, clean EOF |
 | GNU CLISP 2.49.92 | pass | 134/134 | Tarver source (baked) | `factorial`/`take`/`uppercase`, `eval -l file -e expr` (clisp `-q` note) |
 | ECL 26.5.5 | pass | 134/134 | community `stlib.kl` graft | `factorial`/`take`, `eval -e`/`-l -e`; ~1.5s startup |
-| CCL | out of scope | — | — | no native Apple-Silicon build (see ratatoskr README) |
+| CCL | out of scope | — | — | no native Apple-Silicon build (see yggdrasil README) |
 
 Notes:
 - Compiler golden tests: pre-existing drift on master (`1+`/`EQUALP` mismatches
@@ -158,12 +158,12 @@ Notes:
   peephole.
 - clisp intercepts a bare `-q` in its own runtime arg parser (clisp has a native
   `-q`), so `eval -q ...` swallows the result there; `eval -l file -e expr`
-  works. Unrelated to the kernel refresh; ratatoskr uses SBCL as host.
+  works. Unrelated to the kernel refresh; yggdrasil uses SBCL as host.
 
-## Verified as ratatoskr's stage-1 host
+## Verified as yggdrasil's stage-1 host
 
-Using this branch's SBCL binary as `$RATATOSKR_HOST`,
-`ratatoskr shake tests/fib.shen` produces `kernel.kl` = **54 defuns / 13.4 KB**
+Using this branch's SBCL binary as `$YGGDRASIL_HOST`,
+`yggdrasil shake tests/fib.shen` produces `kernel.kl` = **54 defuns / 13.4 KB**
 (the documented figure) plus `fib.kl` + manifest
 (`kernel-version=41.2-s41r.20260711`). `kernel.kl` is **byte-identical** to the
 pre-StLib-change host (the shake slice is host-stdlib-independent), and the

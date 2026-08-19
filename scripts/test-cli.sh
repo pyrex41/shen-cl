@@ -9,7 +9,7 @@
 #   - eval -l FILE -e EXPR   loads a file then evaluates
 #   - script FILE A B        runs a script with *argv* = [FILE A B]
 #   - eval -q ... (pr S)     quiet mode still writes pr to FILE streams (the
-#                            ratatoskr stage-1 regression) -- see notes re CLISP
+#                            yggdrasil stage-1 regression) -- see notes re CLISP
 #   - --version / --help     metadata
 #   - bad subcommand         prints an Invalid argument error
 #   - piped stdin EOF        bounded so a non-exiting REPL cannot hang CI
@@ -152,7 +152,7 @@ test_impl() { # IMPL
     *) ok "$impl: adversarial eval did not leak a Lisp backtrace" ;;
   esac
 
-  # --- quiet (-q) pr-to-file (the ratatoskr stage-1 regression + divergence) ---
+  # --- quiet (-q) pr-to-file (the yggdrasil stage-1 regression + divergence) ---
   # DIVERGENCE: under -q (which sets *hush*), only the SBCL build still writes
   # (pr STR FileStream); the CLISP and ECL builds SILENCE pr to file streams
   # (zero-byte file). (write-byte ... FileStream) is unaffected on ALL builds.

@@ -15,7 +15,7 @@
 # fetch` cannot consume it.
 #
 # shen-cl's build harness (src/compiler.shen generates compiler.kl; boot.lsp
-# assembles the image; the launcher CLI ratatoskr depends on lives in
+# assembles the image; the launcher CLI yggdrasil depends on lives in
 # extension-launcher.kl) needs those dropped pieces. So this script builds a
 # HYBRID kernel:
 #   * the 14 KLambda files shared by both lineages  -> taken from Tarver's refresh
@@ -92,7 +92,7 @@ done
 # is NO LONGER grafted -- the standard library is now installed from Tarver's
 # canonical StLib SOURCES at build time (see below and boot.lsp). The launcher
 # is a deliberate, documented community-sourced extension: Tarver's
-# distribution ships no non-interactive CLI, and ratatoskr stage-1 depends on
+# distribution ships no non-interactive CLI, and yggdrasil stage-1 depends on
 # `eval -l file -e expr`.
 for f in extension-features extension-expand-dynamic extension-launcher; do
   cp "$COMMUNITY_DIR/klambda/$f.kl" "$KERNEL/klambda/$f.kl"
