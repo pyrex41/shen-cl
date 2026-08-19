@@ -174,7 +174,7 @@ build-ecl:
 
 .PHONY: build-sbcl
 build-sbcl:
-	$(SBCL) --load boot.lsp
+	$(SBCL) --non-interactive --load boot.lsp
 
 #
 # Test an implementation
