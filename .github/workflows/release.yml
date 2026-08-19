@@ -46,8 +46,8 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install sbcl
 
-      - name: Fetch ShenOSKernel
-        run: make fetch
+      - name: Assemble Tarver S41.2 hybrid kernel
+        run: make fetch-tarver
 
       - name: Download bootstrap Shen
         shell: bash
