@@ -44,7 +44,8 @@ The `Makefile` automates all build and test operations.
 
 | Target       | Operation                                    |
 |:-------------|:---------------------------------------------|
-| `fetch`      | Download and extract Shen sources.           |
+| `fetch`      | Assemble the supported Shen 41.2 kernel.     |
+| `fetch-community` | Download the legacy community kernel unchanged. |
 | `precompile` | Precompile kernel and compiler to Lisp code. |
 | `build-X`    | Build executable.                            |
 | `test-X`     | Run test suite.                              |
@@ -54,7 +55,16 @@ The `Makefile` automates all build and test operations.
 
 `X` can be `clisp`, `ccl`, `ecl`, `sbcl` or it can be `all`, which will run the command for all of the preceding.
 
-`precompile` is only required when bootstraping Shen/CL from this repository, the source release includes the precompiled files. The `SHEN` variable has to be defined and point to a working Shen executable that will be used to precompile the kernel and compiler code.
+`fetch` assembles the supported hybrid of Mark Tarver's refreshed Shen 41.2
+kernel and the community launcher extensions. `fetch-community` is available
+for inspecting the unmodified community release, but that older layout is not
+a build input for this branch. See
+[`docs/KERNEL-PROVENANCE-tarver-s41.2.md`](docs/KERNEL-PROVENANCE-tarver-s41.2.md).
+
+`precompile` is only required when bootstrapping Shen/CL from this repository;
+the source release includes the precompiled files. The `SHEN` variable must
+point to a working Shen executable used to precompile the kernel and compiler
+code.
 
 ## Building from a precompiled sources release
 

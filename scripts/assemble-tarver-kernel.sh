@@ -5,9 +5,9 @@
 #
 # WHY THIS EXISTS
 # ---------------
-# shen-cl normally runs `make fetch`, which downloads a community
-# shen-sources release (github.com/Shen-Language/shen-sources) whose layout is
-# klambda/ lib/ tests/ extensions/ sources/. Tarver's refreshed S41.2 is a
+# shen-cl's supported `make fetch` assembles this hybrid kernel. The raw
+# community `shen-sources` release (github.com/Shen-Language/shen-sources) has
+# a klambda/ lib/ tests/ extensions/ sources/ layout. Tarver's refreshed S41.2 is a
 # DIFFERENT distribution (same "41.2" version number, restructured kernel):
 # it ships KLambda/ (uppercase), Primitives/, Lib/, backend.lsp + install.lsp
 # for a direct SBCL install, and it DROPS compiler.kl, dict.kl, init.kl,
