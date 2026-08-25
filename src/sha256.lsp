@@ -178,7 +178,12 @@ is read from the running process, not from whoever built the image."
             ;; file, so reach it late and treat its absence as non-fatal.
             (let ((add (find-symbol "shen.x.features.add" :shen)))
               (when (and add (fboundp add))
-                (funcall add '|shen/x.sha256-host|)))
+                ;; Shen Batteries uses slash-qualified feature names. Keep
+                ;; this registration in the same namespace as the extension
+                ;; module (shen.x/sha256-host), so library.shen can satisfy a
+                ;; (requires-features ...) declaration via
+                ;; shen.x.features.current.
+                (funcall add '|shen.x/sha256-host|)))
             (|set| '|shen.x.*sha256-backend*| '|host|)))
     (error (e)
       (format *error-output* "shen-cl: host sha256 unavailable: ~A~%" e)

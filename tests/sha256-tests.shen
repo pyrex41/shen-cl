@@ -27,9 +27,16 @@
 (define sha256-tests.backend
   -> (trap-error (value shen.x.*sha256-backend*) (/. E unset)))
 
+(define sha256-tests.batteries-feature
+  -> (trap-error
+       (element? shen.x/sha256-host (shen.x.features.current))
+       (/. E false)))
+
 (define sha256-tests.run
   -> (let Results
        [(sha256-tests.check "backend-is-host" (sha256-tests.backend) host)
+        (sha256-tests.check "batteries-feature-is-advertised"
+          (sha256-tests.batteries-feature) true)
         (sha256-tests.check "nist-empty"
           (shen.x.sha256-octets-host [])
           [227 176 196 66 152 252 28 20 154 251 244 200 153 111 185 36
