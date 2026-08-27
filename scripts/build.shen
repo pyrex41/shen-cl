@@ -41,7 +41,7 @@
 \\ install.shen into the saved image) and do NOT import this compiled stlib.lsp.
 \\ It is precompiled solely for ECL, whose c:build-program cannot bake
 \\ image-loaded state; boot.lsp imports it only under #+ecl. See boot.lsp and
-\\ docs/KERNEL-PROVENANCE-tarver-s41.2.md.
+\\ docs/KERNEL-PROVENANCE-tarver-s42.0.md.
 
 (set *shen-cl-files* ["compiler"])
 

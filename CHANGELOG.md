@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+- Update the supported Tarver kernel to S42.0 (`S42.zip`, SHA-256
+  `30abdc7e5a1e27b7a20109c1ed141e4712885e31f24d9710d16415fbbd4dfb23`). The
+  community 41.2 archive remains an explicit source for launcher/features and
+  certification grafts until equivalent S42 extensions are available.
+
 **Experimental: build against Mark Tarver's refreshed S41.2 kernel (2026-07-11)**
 
 Tarver re-uploaded a restructured kernel under the same "41.2" version number
