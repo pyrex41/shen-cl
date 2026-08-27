@@ -65,11 +65,14 @@ endif
 # Set shared variables
 #
 
-KernelVersion=41.2
+KernelVersion=42.0
+# Community extensions/tests remain sourced from the latest published
+# ShenOSKernel archive until a matching community S42 archive exists.
+CommunityKernelVersion=41.2
 
 UrlRoot=https://github.com/Shen-Language/shen-sources/releases/download
-KernelTag=shen-$(KernelVersion)
-KernelFolderName=ShenOSKernel-$(KernelVersion)
+KernelTag=shen-$(CommunityKernelVersion)
+KernelFolderName=ShenOSKernel-$(CommunityKernelVersion)
 KernelArchiveName=$(KernelFolderName)$(ArchiveSuffix)
 KernelArchiveUrl=$(UrlRoot)/$(KernelTag)/$(KernelArchiveName)
 BinaryName=shen$(BinarySuffix)
@@ -140,11 +143,11 @@ endif
 fetch:
 	scripts/assemble-tarver-kernel.sh
 
-# Assemble the hybrid kernel for Mark Tarver's refreshed S41.2 distribution
-# (2026-07-11, shenlanguage.org). Unlike the raw `fetch-community` target,
+# Assemble the hybrid kernel for Mark Tarver's S42.0 distribution
+# (2026-08-25, shenlanguage.org). Unlike the raw `fetch-community` target,
 # this is NOT a shen-sources github release: it combines Tarver's restructured
 # KLambda with the community launcher/features/expand-dynamic grafts. See
-# docs/KERNEL-PROVENANCE-tarver-s41.2.md.
+# docs/KERNEL-PROVENANCE-tarver-s42.0.md.
 .PHONY: fetch-tarver
 fetch-tarver: fetch
 

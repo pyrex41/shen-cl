@@ -56,13 +56,13 @@
           ((and |shen-cl.in-repl?| (eq stream |*stinput*|)) (|cl.exit| 0))
           (t ""))))
 
-;; Tarver's S41.2 (2026-07-11) refresh renamed the REPL entrypoint
+;; Tarver's S42.0 (2026-08-25) release renamed the REPL entrypoint
 ;; shen.repl -> shen.shen (identical body: (do (shen.credits) (shen.loop))).
 ;; Alias it back so shen-cl's launcher and startup keep their shen.repl name.
 (unless (fboundp '|shen.repl|)
   (setf (symbol-function '|shen.repl|) (symbol-function '|shen.shen|)))
 
-;; Tarver's S41.2 (2026-07-11) refresh has no shen.initialise function: the
+;; Tarver's S42.0 release has no shen.initialise function: the
 ;; global environment (set *property-vector* (vector 20000), the arity table,
 ;; system symbols, etc.) is initialised by load-time top-level forms in
 ;; declarations.kl, which have already run by the time boot.lsp's init block or
@@ -82,7 +82,7 @@
           (|pr| (|error-to-string| e) (|stoutput|))
           (|nl| 0))))
 
-;; Tarver's S41.2 (2026-07-11) refresh dropped init.kl, whose
+;; Tarver's S42.0 release dropped init.kl, whose
 ;; shen.set-lambda-form-entry recorded a macro's lambda form under the
 ;; shen.lambda-form property. The refreshed kernel does not use that property
 ;; (macro expansion runs through shen.*macros*), but the retained community
@@ -300,7 +300,7 @@
 (defun |thaw| (f)
   (funcall f))
 
-;; NOTE (Tarver S41.2 2026-07-11 refresh): do NOT override hash here.
+;; NOTE (Tarver S42.0 2026-08-25 release): do NOT override hash here.
 ;; The refreshed kernel's global property store (put/get in sys.kl) buckets
 ;; entries by (hash key (limit *property-vector*)), and the kernel populates it
 ;; via top-level (put ..) forms at load time using the kernel's own hash

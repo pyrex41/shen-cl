@@ -198,7 +198,7 @@ but not otherwise.
   -> (compile-expression [shen-cl.<-vector/or X N [freeze Handler]] Scope)
   [<-address X N] [lambda E Handler] Scope
   -> (compile-expression [shen-cl.<-address/or X N [freeze Handler]] Scope)
-  \\ NOTE (Tarver S41.2 2026-07-11 refresh): the (trap-error (get ..) ..) ->
+  \\ NOTE (Tarver S42.0 2026-08-25 release): the (trap-error (get ..) ..) ->
   \\ shen-cl.get/or peephole assumes the property store is a CL hash-table.
   \\ The refreshed kernel binds *property-vector* to a bucketed absvector and
   \\ implements get/put over it, so this optimisation is disabled; get now

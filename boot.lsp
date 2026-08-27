@@ -149,7 +149,7 @@
 (import-lsp source-path "sha256")
 (import-lsp source-path "shen-utils")
 (import-lsp compiled-path "compiler")
-;; Load order follows Tarver's S41.2 (2026-07-11) install.lsp: t-star must
+;; Load order follows Tarver's S42.0 (2026-08-25) install.lsp: t-star must
 ;; precede types, because the refreshed types.kl issues top-level (declare ..)
 ;; forms that call shen.rectify-type, which the refresh defines in t-star.kl
 ;; (community 41.x defined it early in reader.kl, so order was not load-bearing

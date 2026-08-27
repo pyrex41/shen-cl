@@ -804,7 +804,7 @@ Any other form is returned unchanged."
     ;; (ECL C-compiles each definition on load). So ECL alone retains the
     ;; precompiled community stlib.kl graft (baked into the object files,
     ;; replayed cheaply here). Retiring it needs a StLib->.lsp packager; see
-    ;; docs/KERNEL-PROVENANCE-tarver-s41.2.md.
+    ;; docs/KERNEL-PROVENANCE-tarver-s42.0.md.
     #+ecl
     (progn
      (|shen.initialise|)
