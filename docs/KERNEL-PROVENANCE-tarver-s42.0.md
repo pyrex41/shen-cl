@@ -7,7 +7,7 @@ This branch assembles the Shen 42.0 kernel released by Mark Tarver as
 |---|---|
 | Archive SHA-256 | `30abdc7e5a1e27b7a20109c1ed141e4712885e31f24d9710d16415fbbd4dfb23` |
 | Last-Modified | 2026-08-25 |
-| Planned immutable mirror tag | `s42.0-pristine-20260825` |
+| Immutable mirror tag | `s42-pristine-20260825` |
 
 The archive contains the 15-file `S42/KLambda` reference kernel and Tarver's
 standard library. As with S41.2, shen-cl builds a hybrid: these KLambda files
