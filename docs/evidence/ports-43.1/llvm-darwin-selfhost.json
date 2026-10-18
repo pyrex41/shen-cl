@@ -1,0 +1,77 @@
+{
+  "commit": "0ecd5499f36fff58fe9251fd30058cce7928af4f",
+  "platform": {
+    "os": "Darwin",
+    "release": "27.0.0",
+    "machine": "arm64",
+    "llvm": "20.1.8 (Nix)"
+  },
+  "commands": [
+    {
+      "command": "make SELFHOST_DIR=build/selfhost-root-43.1 selfhost",
+      "exit_code": 0,
+      "seconds": 12.036,
+      "note": "Optional runtime LTO attempt failed with target-triple/probe-stack mismatch; supported plain-object fallback linked successfully."
+    },
+    {
+      "command": "build/selfhost-root-43.1/kl-llvm examples/slice.kl build/selfhost-root-43.1/root-smoke.ll --entry main --rc --no-roots",
+      "exit_code": 0,
+      "seconds": 0.321,
+      "result": "COMPILE-OK"
+    },
+    {
+      "command": "make SELFHOST_DIR=build/selfhost-root-43.1 LTO_CLANG= selfhost-test",
+      "exit_code": 0,
+      "seconds": 13.109,
+      "result": "Stage0 == stage1 == stage2 LLVM IR, byte-identical"
+    }
+  ],
+  "scope": "Fresh native Darwin ARM64 compiler startup, two RC selfhost fixpoints and the three prior CI regressions, no LTO. Full Darwin canonical/ASan/Boehm suites not run. Linux CI recorded separately.",
+  "artifacts": {
+    "kl-llvm": {
+      "sha256": "fd593f91bd09468a31126c93dfad6bf805650c20350036d931a1f461bdb2b218",
+      "bytes": 2513400
+    },
+    "kl-llvm.ll": {
+      "sha256": "470e36181b671fd5cea0ede6338472ae8a0bb6e24a564c9b219f572647918a4a",
+      "bytes": 16526433
+    },
+    "stage1.ll": {
+      "sha256": "470e36181b671fd5cea0ede6338472ae8a0bb6e24a564c9b219f572647918a4a",
+      "bytes": 16526433
+    },
+    "stage2.ll": {
+      "sha256": "470e36181b671fd5cea0ede6338472ae8a0bb6e24a564c9b219f572647918a4a",
+      "bytes": 16526433
+    }
+  },
+  "logs": {
+    "selfhost": {
+      "artifact": "llvm-darwin-selfhost.log.gz",
+      "sha256": "fd7b3b1f7eee65cf2e29bae439722c8ee1f9f551585de480a785c62e77fa9efb"
+    },
+    "fixpoint": {
+      "artifact": "llvm-darwin-fixpoint.log.gz",
+      "sha256": "acb3c2b462858f1ed44be6771251bbc50c961cdbf517e28ab38b48498fa905a3"
+    },
+    "three-regressions": {
+      "artifact": "llvm-darwin-three-regressions.log.gz",
+      "sha256": "2cc715ca97803613628e13f8a3f5bff16fc303220c2cb7fd5f1b28a3ce4b00f0"
+    },
+    "roots-regression": {
+      "artifact": "llvm-darwin-roots-regression.log.gz",
+      "sha256": "e3487e7ba6a22602d5bac5992ad32fc1a511ff1594c07cfd8ffbdcc9368c69e1"
+    }
+  },
+  "root_review_checks": {
+    "strict_kernel_override_tests": "6/6 PASS",
+    "aot_bootstrap_generation": "Generated main parses and seeds setter arity/name; structural check only",
+    "canonical_baseline": "All154 current release case IDs present;34 prior AOT report expectations retained",
+    "previous_ci_regressions": {
+      "native_compiler_memory_flags": "PASS",
+      "stage1_ll_byte_identical_to_stage0_ll": "PASS",
+      "roots_compiler_on_rc_heap_reproduces_stage0": "PASS (separate rerun,19.084s)",
+      "setup_note": "Initial three-test run passed two tests; RC roots test stopped at the macOS helper looking for brew. Rerun set GC_LINK_FLAGS empty because RC links no Boehm library. No source changes or assertion skips."
+    }
+  }
+}

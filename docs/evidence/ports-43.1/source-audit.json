@@ -1,118 +1,276 @@
 {
   "date": "2026-10-18",
-  "release_kl_files": 24,
+  "release_kl_files": 23,
   "release_sha256_by_file": {
-    "compiler.kl": "641681271dd0180a831a81005841cb0f9695838dde242766d3a1d27fe1eb51d7",
-    "extension-programmable-pattern-matching.kl": "73cfc2573b855bf36e5c090435a1cbf51cc5ea0365898a351492ea6f617e2e39",
-    "toplevel.kl": "9af4d86c1a71aef91ddbf3ded8bced89ab074ee39a9a3b4cab5d23232576bafd",
-    "t-star.kl": "2d77020564e9f2bcb94fa4850f2ee4191d36b15fb2eae9e9a3523b36945d6256",
-    "yacc.kl": "bd178ad4cf028115fabd1e7f3b00f202f73be1380b71a6111de3a0ce0bf30ad8",
-    "extension-launcher.kl": "6104c2e63196ab874686cf3ca490fa0a611f6339abedae84d86fab53c9accf7a",
     "core.kl": "9c0ef84f269a23cbdde12918f12e3619d8a186893cfc029f5e30cc7807e200e1",
-    "types.kl": "abaaed4c1a60c1975812840e36f921e47a02ea83ebf8486cae2299b340a563fd",
-    "extension-namespaces.kl": "a7bc89e6f1d5c48bcd42049f1e6e2dc5a1dcaa681130cc64f7fe811170d38b13",
-    "prolog.kl": "3bff799fcf08f3200d99be2add455baf3515daf3cbe625a3ad02a6328385151d",
-    "track.kl": "4b6bd66e41aba17a2c70d3495f3a5270c1d04175df201836622ff6dc16295c04",
-    "extension-expand-dynamic.kl": "a9537dc7305be0b0cb2d1626e8dce55211165dc79f8646d7828362cb1c52f37d",
-    "macros.kl": "600b6ae62f4f889d4c5e7382e5213f03351aa958ceb2849115c01f54da217ab2",
-    "writer.kl": "14d76910a9278f0583a127f9b4dfd6b4ca65d2ce624492710c3d79992c22c532",
-    "sequent.kl": "724d6c88cd10e2c0aa201fea2903ae1fa86a1d4159553738f1cfa8d05b2973a5",
-    "reader.kl": "77441ce0c39090e9bffee2099f738311c777c774331da03b74c81822e40bb440",
-    "extension-type-annotations.kl": "942570a627ca231c115a87a5583fa750aad07632d52b70fa2738621faa456500",
     "declarations.kl": "d8126bd1bb4af11c7decd47270e859df59df79f6bbfd09d5d51fc3fd15b98dfb",
+    "dict.kl": "396036b34cd05e7a537efe06e63fff9ad22df59ad19c78f4ab4515ceeb3184e3",
+    "extension-expand-dynamic.kl": "a9537dc7305be0b0cb2d1626e8dce55211165dc79f8646d7828362cb1c52f37d",
+    "extension-features.kl": "9bb739fc6f2a65c100ab4d06d9f1fbca48f02e9aad2aed4faf8069e67ee2cc3b",
+    "extension-launcher.kl": "6104c2e63196ab874686cf3ca490fa0a611f6339abedae84d86fab53c9accf7a",
+    "extension-namespaces.kl": "a7bc89e6f1d5c48bcd42049f1e6e2dc5a1dcaa681130cc64f7fe811170d38b13",
+    "extension-programmable-pattern-matching.kl": "73cfc2573b855bf36e5c090435a1cbf51cc5ea0365898a351492ea6f617e2e39",
+    "extension-type-annotations.kl": "942570a627ca231c115a87a5583fa750aad07632d52b70fa2738621faa456500",
+    "init.kl": "223235260f356b8238da0e9db93034de0c7199dd60b2e568f0c9d4fcf73c1e36",
+    "load.kl": "6bd0ea6edfa23ce90bc797db75de74318fe170b90b82e20a3caac0f48445a0ef",
+    "macros.kl": "600b6ae62f4f889d4c5e7382e5213f03351aa958ceb2849115c01f54da217ab2",
+    "prolog.kl": "3bff799fcf08f3200d99be2add455baf3515daf3cbe625a3ad02a6328385151d",
+    "reader.kl": "77441ce0c39090e9bffee2099f738311c777c774331da03b74c81822e40bb440",
+    "sequent.kl": "724d6c88cd10e2c0aa201fea2903ae1fa86a1d4159553738f1cfa8d05b2973a5",
     "stlib.kl": "d987926573c4403143a7316d04cc9eff176c341411fe35dba95587f9e83e187e",
     "sys.kl": "fee3e40475746bf90a57066e079d218fa38a1fd7caa229d054cdc40cfa6c2350",
-    "extension-features.kl": "9bb739fc6f2a65c100ab4d06d9f1fbca48f02e9aad2aed4faf8069e67ee2cc3b",
-    "dict.kl": "396036b34cd05e7a537efe06e63fff9ad22df59ad19c78f4ab4515ceeb3184e3",
-    "init.kl": "223235260f356b8238da0e9db93034de0c7199dd60b2e568f0c9d4fcf73c1e36",
-    "load.kl": "6bd0ea6edfa23ce90bc797db75de74318fe170b90b82e20a3caac0f48445a0ef"
+    "t-star.kl": "2d77020564e9f2bcb94fa4850f2ee4191d36b15fb2eae9e9a3523b36945d6256",
+    "toplevel.kl": "9af4d86c1a71aef91ddbf3ded8bced89ab074ee39a9a3b4cab5d23232576bafd",
+    "track.kl": "4b6bd66e41aba17a2c70d3495f3a5270c1d04175df201836622ff6dc16295c04",
+    "types.kl": "abaaed4c1a60c1975812840e36f921e47a02ea83ebf8486cae2299b340a563fd",
+    "writer.kl": "14d76910a9278f0583a127f9b4dfd6b4ca65d2ce624492710c3d79992c22c532",
+    "yacc.kl": "bd178ad4cf028115fabd1e7f3b00f202f73be1380b71a6111de3a0ce0bf30ad8"
   },
   "checks": {
-    "shen-go": {
-      "commit": "acba88a3f189f055285a9bdb22901ad688db7cd3",
+    "shen-cl": {
+      "commit": "d9890b72e5d8d07a37452733b5f976e18db1c62b",
+      "source_origin": "tracked-release-with-local-cl-backend",
       "directory": "kernel/klambda",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "extra_files": [
+        "compiler.kl"
+      ],
+      "source_identity_note": "Official Shen/CL source includes the 23-file 43.1 release kernel plus compiler.kl, the Shen/CL backend (Copyright Bruno), which is separate from the community release archive.",
+      "backend_extra": "compiler.kl",
+      "release_files_byte_identical": true
+    },
+    "shen-go": {
+      "commit": "54c68dbd5d7c800c2f87313d4cb283d421a64ad6",
+      "source_origin": "tracked-vendored",
+      "directory": "kernel/klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true,
+      "extra_files": [],
+      "release_files_byte_identical": true
     },
     "shen-rust": {
-      "commit": "d893c8e57bb626832be1f2e6675e2429e063507f",
+      "commit": "ec950a06fd648cc810f8c9f429aae3801f9899bf",
+      "source_origin": "tracked-vendored",
       "directory": "kernel/klambda",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "extra_files": [
+        "compiler.kl"
+      ],
+      "release_files_byte_identical": true
     },
     "shen-lua": {
-      "commit": "176e1037f31f2d59cf69cda412f99096ddc54550",
+      "commit": "e3dec8b22bb7c2c2331889f7490475ad263645e3",
+      "source_origin": "tracked-vendored",
       "directory": "klambda",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "extra_files": [],
+      "release_files_byte_identical": true
     },
     "shen-julia": {
-      "commit": "0bc8aa6cf33240b2fa0a09b8ce8e0f2f45b3767c",
+      "commit": "99c717b12b0773a8f5889a781fc3d70fa643ba46",
+      "source_origin": "tracked-vendored",
       "directory": "klambda",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "extra_files": [],
+      "release_files_byte_identical": true
     },
     "shen-swift": {
-      "commit": "56204461a088ae8fd5e7e74c91a02bcc1a6c1322",
+      "commit": "c0efa5c8f635f999079674cbc7c2d98218848c98",
+      "source_origin": "tracked-vendored",
       "directory": "Sources/ShenSwift/klambda",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "extra_files": [],
+      "release_files_byte_identical": true
     },
     "shen-truffle": {
-      "commit": "ac8d2d85516f41b96e2ec39efb0e0d668560daa4",
+      "commit": "29517d3ab210273352bbb1c435686153e151e499",
+      "source_origin": "tracked-vendored",
       "directory": "src/main/resources/klambda",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "extra_files": [],
+      "release_files_byte_identical": true
     },
     "ShenScript": {
-      "commit": "f21f30e1a0d384dde29b39736be7c715bffc10dc",
+      "commit": "a4619e285c33fcf9803e78faf80c37dabda72bec",
+      "source_origin": "tracked-vendored",
       "directory": "kernel/klambda",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "extra_files": [],
+      "release_files_byte_identical": true
     },
     "shen-koka": {
-      "commit": "d03588064366a9f7d50abd36d75cabc55327883d",
+      "commit": "274432bd75c4eea052c51e246db8dc38009a6304",
+      "source_origin": "tracked-vendored",
       "directory": "kernel/klambda",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "extra_files": [
+        "backend.kl"
+      ],
+      "release_files_byte_identical": true
     },
     "shen-odin": {
-      "commit": "2d84598ffc1984a08773515aff2d1c2175bf49fe",
+      "commit": "6660379bdbc553deef288c9804f606453d68f5c0",
+      "source_origin": "tracked-vendored",
       "directory": "kernel/klambda",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "extra_files": [],
+      "release_files_byte_identical": true
     },
     "shen-ocaml": {
-      "commit": "2d803731749d1bb63d076847c22272c15e488bcf",
+      "commit": "786e5d8bb521f322393c203553b7e76d95d9f8af",
+      "source_origin": "tracked-vendored",
       "directory": "shen-ocaml/kernel",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "extra_files": [],
+      "release_files_byte_identical": true
     },
     "shen-forth": {
-      "commit": "1c02522a82889e040fddebb666f7ab4525805332",
+      "commit": "8fa11ff156c9791fc1b9e93b7b2d2cca3555ea04",
+      "source_origin": "tracked-vendored",
       "directory": "kernel/klambda",
-      "missing": [
-        "compiler.kl"
-      ],
+      "missing": [],
       "different": [],
-      "byte_identical": false
+      "byte_identical": true,
+      "extra_files": [
+        "backend.kl"
+      ],
+      "release_files_byte_identical": true
     },
     "shen-llvm": {
-      "commit": "303e7d07526e6d70575f2f54745083c940d936c2",
+      "commit": "0ecd5499f36fff58fe9251fd30058cce7928af4f",
+      "source_origin": "tracked-vendored",
       "directory": "shen-native/vendor/S42/KLambda",
       "missing": [],
       "different": [],
-      "byte_identical": true
+      "byte_identical": true,
+      "directory_note": "The historical S42 directory name contains all 23 release files byte-identical to the 43.1 baseline.",
+      "extra_files": [],
+      "release_files_byte_identical": true
+    },
+    "shen-erl": {
+      "commit": "dbe7bdf0b780fe8b5c86c4501f04181432528d04",
+      "source_origin": "pinned-fetched-release",
+      "directory": "ShenOSKernel-43.1/klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true,
+      "fetched_release_files": 23,
+      "source_identity_note": "Makefile/KERNEL.md pin the 43.1 release archive and checksum. The release archive supplies 23 klambda files; the Erlang build intentionally copies its selected modules and does not claim compiler.kl as release source.",
+      "extra_files": [],
+      "release_files_byte_identical": true
+    },
+    "shen-scheme": {
+      "commit": "52bec1d094478f29c3a1aa8ff965e22a63083d8d",
+      "source_origin": "pinned-fetched-release-with-generated-backend",
+      "directory": "kl",
+      "missing": [],
+      "different": [],
+      "byte_identical": true,
+      "fetched_release_files": 23,
+      "generated_backend": {
+        "file": "compiler.kl",
+        "status": "generated-port-backend",
+        "byte_identical": false
+      },
+      "source_identity_note": "KERNEL-PROVENANCE.md and Makefile pin and verify the 23-file 43.1 release archive; compiler.kl is generated by scripts/build.shen for the Scheme backend and is separate from the release source.",
+      "extra_files": [
+        "compiler.kl",
+        "native-app.kl",
+        "native-codegen.kl",
+        "native-compiler.kl",
+        "native-modules.kl",
+        "native-source.kl",
+        "overrides.kl",
+        "shen-scheme-extensions.kl"
+      ],
+      "release_files_byte_identical": true,
+      "published_commit": "4dc9cc2a9f9fed14a0cda50903ce4139d68fde7b",
+      "candidate_only_difference": "52bec1d differs from the published commit only in .github/workflows/deploy.yml (prepared Pages token permission). Kernel acquisition pins and source inputs are identical."
+    },
+    "shen-inets": {
+      "commit": "ff1349890fa9b89531ca3502899a42cab2e452c4",
+      "source_origin": "pinned-fetched-release-external-to-repo",
+      "directory": "../ShenOSKernel-43.1/klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true,
+      "fetched_release_files": 23,
+      "source_identity_note": "KERNEL-PROVENANCE-43.1.md pins the 23-file release archive; the official-release compile gate passes 1116/1116 defuns. This source audit checks the fetched release tree separately from runtime qualification.",
+      "extra_files": [],
+      "release_files_byte_identical": true
+    },
+    "shen-joy": {
+      "commit": "fd73c2f2d0dd817b3f8feb15b28b989f8a77568d",
+      "source_origin": "reference-only-pinned-43.1",
+      "directory": null,
+      "missing": [
+        "core.kl",
+        "declarations.kl",
+        "dict.kl",
+        "extension-expand-dynamic.kl",
+        "extension-features.kl",
+        "extension-launcher.kl",
+        "extension-namespaces.kl",
+        "extension-programmable-pattern-matching.kl",
+        "extension-type-annotations.kl",
+        "init.kl",
+        "load.kl",
+        "macros.kl",
+        "prolog.kl",
+        "reader.kl",
+        "sequent.kl",
+        "stlib.kl",
+        "sys.kl",
+        "t-star.kl",
+        "toplevel.kl",
+        "track.kl",
+        "types.kl",
+        "writer.kl",
+        "yacc.kl"
+      ],
+      "different": [],
+      "byte_identical": false,
+      "reference_boundary": "PROVENANCE.md pins ShenOSKernel 43.1 semantics for the bounded Joy subset; the Joy runtime does not vendor or execute the 23 release KL source files.",
+      "extra_files": [],
+      "release_files_byte_identical": false
     }
-  }
+  },
+  "source_audit_scope": {
+    "official_kernel_baseline": "ShenOSKernel-43.1.tar.gz::klambda",
+    "official_kernel_files": 23,
+    "candidate_ports": 17,
+    "tracked_files_checked": true,
+    "ignored_physical_sources_checked": true,
+    "all_release_tests": "73 release test files counted from the verified ShenOSKernel-43.1/tests tree; source audit only.",
+    "release_test_files": 73,
+    "release_tests_executed": false,
+    "release_test_execution_note": "Counted release files, not a 73-test qualification result; this refresh audits source identity and does not substitute for port test execution.",
+    "official_kernel_archive_sha256": "900eedef44f440af78f9395ed06e689ce1604546fc309f5bc7c8bc84cc651920",
+    "official_kernel_baseline_note": "Direct release archive contains 23 .kl files. compiler.kl in Shen/CL and other ports is an extra backend file, not part of the community release.",
+    "baseline_origin": "checksum-verified official release archive, not the CL working tree",
+    "revision_scope": "Source trees in the upgrade worktrees; exact observed fork default refs and CI rollups are recorded separately in publication-snapshot.json."
+  },
+  "release_archive": "ShenOSKernel-43.1.tar.gz",
+  "release_archive_sha256": "900eedef44f440af78f9395ed06e689ce1604546fc309f5bc7c8bc84cc651920"
 }

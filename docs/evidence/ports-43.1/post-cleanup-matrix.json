@@ -1,0 +1,55 @@
+{
+  "swift-truffle-final": {
+    "artifact": "bifrost-swift-truffle-final.json.gz",
+    "sha256": "d0b2208b434b83d9dd2ac06dbfaa07b630062c79ebd4de3a1ccf799bf9401785",
+    "executed_cases": 72,
+    "verdicts": {
+      "PASS": 71,
+      "DIVERGE": 1
+    },
+    "historical_kernel_rows_skipped": [
+      "version-banner-contains",
+      "version-expr-42.2"
+    ],
+    "implementation_capability_skips": {
+      "namespace-externals-expression": [
+        "shen-swift",
+        "shen-truffle"
+      ]
+    },
+    "exit_code": 0,
+    "implementations": {
+      "CL": "d9494df",
+      "Swift": "53e4cc8 rebuilt release bundled23KL",
+      "Truffle": "79e1a44 rebuilt JVM"
+    }
+  },
+  "julia-final": {
+    "artifact": "bifrost-julia-final.json.gz",
+    "sha256": "f9db43adad59ce70bcee3abfe67eeb2aff837c345ec3d7bda6b2a4efd335a3c4",
+    "executed_cases": 72,
+    "verdicts": {
+      "PASS": 71,
+      "DIVERGE": 1
+    },
+    "historical_kernel_rows_skipped": [
+      "version-banner-contains",
+      "version-expr-42.2"
+    ],
+    "implementation_capability_skips": {
+      "namespace-externals-expression": [
+        "shen-julia"
+      ]
+    },
+    "exit_code": 0,
+    "implementations": {
+      "CL": "d9494df",
+      "Julia": "9655446 without sysimage"
+    }
+  },
+  "fixture_environment": {
+    "working_directory": "fixture parent containing programs/",
+    "setup": "Bifrost fixtures use relative programs/ paths. Local runs supplied a temporary programs symlink to the generated fixture directory; the symlink was removed after qualification.",
+    "source_changes": false
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "observed_at_utc": "2026-10-18T21:30:14.323243+00:00",
+  "scope": "Default refs and status rollups; CI absence/pending is not PASS",
+  "repositories": [
+    {
+      "name": "shen-c",
+      "branch": "main",
+      "commit": "802e72483177ed1b7a5d311364770b0b4d490cab",
+      "ci_rollup": "NO_REPORTED_CHECKS",
+      "excluded_from_agent_changes": true
+    },
+    {
+      "name": "shen-cl",
+      "branch": "master",
+      "commit": "d9890b72e5d8d07a37452733b5f976e18db1c62b",
+      "ci_rollup": "SUCCESS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-go",
+      "branch": "master",
+      "commit": "54c68dbd5d7c800c2f87313d4cb283d421a64ad6",
+      "ci_rollup": "SUCCESS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-erl",
+      "branch": "master",
+      "commit": "dbe7bdf0b780fe8b5c86c4501f04181432528d04",
+      "ci_rollup": "NO_REPORTED_CHECKS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-rust",
+      "branch": "main",
+      "commit": "ec950a06fd648cc810f8c9f429aae3801f9899bf",
+      "ci_rollup": "SUCCESS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-lua",
+      "branch": "main",
+      "commit": "e3dec8b22bb7c2c2331889f7490475ad263645e3",
+      "ci_rollup": "SUCCESS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-scheme",
+      "branch": "master",
+      "commit": "4dc9cc2a9f9fed14a0cda50903ce4139d68fde7b",
+      "ci_rollup": "FAILURE",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-joy",
+      "branch": "main",
+      "commit": "fd73c2f2d0dd817b3f8feb15b28b989f8a77568d",
+      "ci_rollup": "NO_REPORTED_CHECKS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-swift",
+      "branch": "main",
+      "commit": "c0efa5c8f635f999079674cbc7c2d98218848c98",
+      "ci_rollup": "NO_REPORTED_CHECKS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-julia",
+      "branch": "main",
+      "commit": "99c717b12b0773a8f5889a781fc3d70fa643ba46",
+      "ci_rollup": "NO_REPORTED_CHECKS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-truffle",
+      "branch": "master",
+      "commit": "29517d3ab210273352bbb1c435686153e151e499",
+      "ci_rollup": "SUCCESS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "ShenScript",
+      "branch": "master",
+      "commit": "a4619e285c33fcf9803e78faf80c37dabda72bec",
+      "ci_rollup": "SUCCESS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-llvm",
+      "branch": "master",
+      "commit": "0ecd5499f36fff58fe9251fd30058cce7928af4f",
+      "ci_rollup": "PENDING",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-koka",
+      "branch": "master",
+      "commit": "274432bd75c4eea052c51e246db8dc38009a6304",
+      "ci_rollup": "NO_REPORTED_CHECKS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-odin",
+      "branch": "main",
+      "commit": "6660379bdbc553deef288c9804f606453d68f5c0",
+      "ci_rollup": "NO_REPORTED_CHECKS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-ocaml",
+      "branch": "main",
+      "commit": "786e5d8bb521f322393c203553b7e76d95d9f8af",
+      "ci_rollup": "NO_REPORTED_CHECKS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-inets",
+      "branch": "main",
+      "commit": "ff1349890fa9b89531ca3502899a42cab2e452c4",
+      "ci_rollup": "NO_REPORTED_CHECKS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "shen-forth",
+      "branch": "main",
+      "commit": "8fa11ff156c9791fc1b9e93b7b2d2cca3555ea04",
+      "ci_rollup": "SUCCESS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "bifrost",
+      "branch": "main",
+      "commit": "8ad96b9c1bed8aa14aa1a53a31e5a3bf8c7d911a",
+      "ci_rollup": "SUCCESS",
+      "excluded_from_agent_changes": false
+    },
+    {
+      "name": "yggdrasil",
+      "branch": "main",
+      "commit": "bf6d30ca26b60948d880697aa255d13a385067e6",
+      "ci_rollup": "SUCCESS",
+      "excluded_from_agent_changes": false
+    }
+  ]
+}
