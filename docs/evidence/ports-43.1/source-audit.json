@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-18",
+  "release_kl_files": 24,
+  "release_sha256_by_file": {
+    "compiler.kl": "641681271dd0180a831a81005841cb0f9695838dde242766d3a1d27fe1eb51d7",
+    "extension-programmable-pattern-matching.kl": "73cfc2573b855bf36e5c090435a1cbf51cc5ea0365898a351492ea6f617e2e39",
+    "toplevel.kl": "9af4d86c1a71aef91ddbf3ded8bced89ab074ee39a9a3b4cab5d23232576bafd",
+    "t-star.kl": "2d77020564e9f2bcb94fa4850f2ee4191d36b15fb2eae9e9a3523b36945d6256",
+    "yacc.kl": "bd178ad4cf028115fabd1e7f3b00f202f73be1380b71a6111de3a0ce0bf30ad8",
+    "extension-launcher.kl": "6104c2e63196ab874686cf3ca490fa0a611f6339abedae84d86fab53c9accf7a",
+    "core.kl": "9c0ef84f269a23cbdde12918f12e3619d8a186893cfc029f5e30cc7807e200e1",
+    "types.kl": "abaaed4c1a60c1975812840e36f921e47a02ea83ebf8486cae2299b340a563fd",
+    "extension-namespaces.kl": "a7bc89e6f1d5c48bcd42049f1e6e2dc5a1dcaa681130cc64f7fe811170d38b13",
+    "prolog.kl": "3bff799fcf08f3200d99be2add455baf3515daf3cbe625a3ad02a6328385151d",
+    "track.kl": "4b6bd66e41aba17a2c70d3495f3a5270c1d04175df201836622ff6dc16295c04",
+    "extension-expand-dynamic.kl": "a9537dc7305be0b0cb2d1626e8dce55211165dc79f8646d7828362cb1c52f37d",
+    "macros.kl": "600b6ae62f4f889d4c5e7382e5213f03351aa958ceb2849115c01f54da217ab2",
+    "writer.kl": "14d76910a9278f0583a127f9b4dfd6b4ca65d2ce624492710c3d79992c22c532",
+    "sequent.kl": "724d6c88cd10e2c0aa201fea2903ae1fa86a1d4159553738f1cfa8d05b2973a5",
+    "reader.kl": "77441ce0c39090e9bffee2099f738311c777c774331da03b74c81822e40bb440",
+    "extension-type-annotations.kl": "942570a627ca231c115a87a5583fa750aad07632d52b70fa2738621faa456500",
+    "declarations.kl": "d8126bd1bb4af11c7decd47270e859df59df79f6bbfd09d5d51fc3fd15b98dfb",
+    "stlib.kl": "d987926573c4403143a7316d04cc9eff176c341411fe35dba95587f9e83e187e",
+    "sys.kl": "fee3e40475746bf90a57066e079d218fa38a1fd7caa229d054cdc40cfa6c2350",
+    "extension-features.kl": "9bb739fc6f2a65c100ab4d06d9f1fbca48f02e9aad2aed4faf8069e67ee2cc3b",
+    "dict.kl": "396036b34cd05e7a537efe06e63fff9ad22df59ad19c78f4ab4515ceeb3184e3",
+    "init.kl": "223235260f356b8238da0e9db93034de0c7199dd60b2e568f0c9d4fcf73c1e36",
+    "load.kl": "6bd0ea6edfa23ce90bc797db75de74318fe170b90b82e20a3caac0f48445a0ef"
+  },
+  "checks": {
+    "shen-go": {
+      "commit": "acba88a3f189f055285a9bdb22901ad688db7cd3",
+      "directory": "kernel/klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    },
+    "shen-rust": {
+      "commit": "d893c8e57bb626832be1f2e6675e2429e063507f",
+      "directory": "kernel/klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    },
+    "shen-lua": {
+      "commit": "176e1037f31f2d59cf69cda412f99096ddc54550",
+      "directory": "klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    },
+    "shen-julia": {
+      "commit": "0bc8aa6cf33240b2fa0a09b8ce8e0f2f45b3767c",
+      "directory": "klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    },
+    "shen-swift": {
+      "commit": "56204461a088ae8fd5e7e74c91a02bcc1a6c1322",
+      "directory": "Sources/ShenSwift/klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    },
+    "shen-truffle": {
+      "commit": "ac8d2d85516f41b96e2ec39efb0e0d668560daa4",
+      "directory": "src/main/resources/klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    },
+    "ShenScript": {
+      "commit": "f21f30e1a0d384dde29b39736be7c715bffc10dc",
+      "directory": "kernel/klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    },
+    "shen-koka": {
+      "commit": "d03588064366a9f7d50abd36d75cabc55327883d",
+      "directory": "kernel/klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    },
+    "shen-odin": {
+      "commit": "2d84598ffc1984a08773515aff2d1c2175bf49fe",
+      "directory": "kernel/klambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    },
+    "shen-ocaml": {
+      "commit": "2d803731749d1bb63d076847c22272c15e488bcf",
+      "directory": "shen-ocaml/kernel",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    },
+    "shen-forth": {
+      "commit": "1c02522a82889e040fddebb666f7ab4525805332",
+      "directory": "kernel/klambda",
+      "missing": [
+        "compiler.kl"
+      ],
+      "different": [],
+      "byte_identical": false
+    },
+    "shen-llvm": {
+      "commit": "303e7d07526e6d70575f2f54745083c940d936c2",
+      "directory": "shen-native/vendor/S42/KLambda",
+      "missing": [],
+      "different": [],
+      "byte_identical": true
+    }
+  }
+}

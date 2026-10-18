@@ -28,29 +28,43 @@ launchers. Unsupported/blocked cases remain explicit.
 
 ## Port roster
 
-| Port | Assignment | Status |
+| Port | Fork default / candidate | Verified status |
 |---|---|---|
-| shen-c | User | Excluded from agent writes |
-| shen-cl | Coordinator | Upstream 3.2.0 integrated in isolated branch; full native suite PASS |
-| shen-go | shen_go_431 | Active |
-| shen-erl | shen_erl_431 | Active |
-| shen-rust | shen_rust_431 | Active |
-| shen-lua | shen_lua_431 | Active |
-| shen-scheme | shen_scheme_431 | Active |
-| shen-joy | shen_joy_431 | Active; bounded-VM scope must remain explicit |
-| shen-swift | shen_swift_431 | Active |
-| shen-julia | shen_julia_431 | Active |
-| shen-truffle | shen_truffle_431 | Active |
-| ShenScript | shenscript_431 | Active |
-| shen-llvm | Next wave | Inventory pending |
-| shen-koka | Next wave | Inventory pending |
-| shen-odin | Next wave | Inventory pending |
-| shen-ocaml | Next wave | Inventory pending |
-| shen-inets | Next wave | Inventory pending |
-| shen-forth | Next wave | Inventory pending |
+| shen-c | User-owned | Excluded from agent writes |
+| shen-cl | master `d9494df` | Published; canonical 154/154, full native suite; CI success |
+| shen-go | master `acba88a` | Published; canonical 154/154, KL certification and port checks |
+| shen-erl | master `dbe7bdf` | Published; canonical 154/154, Common Test 47/47 (Docker) |
+| shen-rust | main `d893c8e` | Published; canonical 154/154, native/AOT checks |
+| shen-lua | main `176e103` | Published; canonical 154/154, 1,210 port assertions |
+| shen-scheme | master `4dc9cc2` | Published; canonical 154/154, native build CI passes; Pages deploy permission fails |
+| shen-joy | main `fd73c2f` | Published; bounded subset, five Nix checks pass against 43.1 reference |
+| shen-swift | main `5620446` | Published; canonical 154/154, focused native CLI checks; XCTest unavailable |
+| shen-julia | candidate `0bc8aa6` | Canonical 154/154; broader compatibility failures under investigation |
+| shen-truffle | master `ac8d2d8` | Published; canonical 154/154, Maven 20/20; native-image untested |
+| ShenScript | master `f21f30e` | Published; canonical 154/154, backend 468, async reader regression |
+| shen-llvm | candidate `303e7d0` | LLVM integration 18/18; full conformance and native shake repairs underway |
+| shen-koka | candidate `d035880` | Canonical 154/154; stream contract and provenance review underway |
+| shen-odin | main `2d84598` | Published fixture; 24 KL files byte-identical, no evaluator: runtime UNKNOWN |
+| shen-ocaml | candidate `2d80373` | Complete source upgrade; native build/test underway |
+| shen-inets | candidate `3659531` | Experimental compiler: 1,116/1,116 defuns compile; runtime unqualified |
+| shen-forth | Isolated repair underway | Experimental scaffold; 43.1 boot repair in progress |
 
-Bifrost: local 43.1 adapter/version cases pass 72 applicable corpus checks;
-two 42.2 cases are skipped; a 42.2 stale-launcher control fails as expected.
-Yggdrasil: shared kernel upgraded wholesale to 43.1 in its isolated branch;
-Lisp gate passes ten fixtures. Shared-kernel oracle and other-target checks
-are underway. All statuses above are local evidence unless stated otherwise.
+Bifrost: all maintained adapters now target 43.1 in integration commit `95da9f3`.
+The eight-port matrix (CL, Go, Rust, Lua, Scheme, JS, Swift, Truffle) executes
+72 cases with no failures, with two known integer-precision divergences and
+two unmatched historical 42.2 version rows skipped. The CL/Erlang matrix
+executes all 72 with no failures or divergences. The stale 42.2 launcher control fails as
+expected. Installation refs and documentation are being updated before publish.
+
+Yggdrasil: shared kernel upgraded wholesale to 43.1; Lisp with Lua, Go and JS each passes all
+ten fixtures, including standalone structural dictionaries and stdin readers.
+The shared-kernel oracle/footprint/init-order checks pass. A broad hosted test
+run exceeded an overly short 280-second budget after 40 top-level tests passed;
+the remaining tests are running with the suite's documented longer budget.
+The CI host pin is updated to the reviewed Go 43.1 commit. Lisp with Scheme,
+Swift and Truffle each passes four representative fixtures including dictionaries
+and stdin reads. Rust fork CI failures are under investigation; other CI states
+are tracked separately from the local suite results.
+
+Statuses are local evidence unless publication or CI is explicitly stated.
+Canonical runtime passes do not imply Bifrost agreement or Yggdrasil support.
