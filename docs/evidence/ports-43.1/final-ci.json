@@ -1,0 +1,1141 @@
+{
+  "observed_at_utc": "2026-10-18T22:21:24.064944+00:00",
+  "checks": [
+    {
+      "repository": "pyrex41/shen-llvm",
+      "run_id": 39170316619,
+      "commit": "031cdb853cb18c90c3effa3a2fafd8572c23f878",
+      "workflow": "CI",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pyrex41/shen-llvm/actions/runs/39170316619",
+      "jobs": [
+        {
+          "name": "Linux x86-64 (LLVM 20)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install system packages",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Show toolchain",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fetch pinned dependencies (shen-scheme v0.52 / Shen 43.1, Yggdrasil)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test suite, reference counting (default; ASan/UBSan)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Stage-2 self-host fixpoint (reference counting)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test suite, Boehm GC",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Stage-2 self-host fixpoint (Boehm GC) and cross-checks",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Tracked sources unchanged by the build",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "S42 conformance against shen-scheme",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "verified_log_summary": {
+        "runtime_suites": {
+          "rc_asan_ubsan": {
+            "tests": 181,
+            "failures": 0,
+            "seconds": 431.517
+          },
+          "boehm": {
+            "tests": 181,
+            "failures": 0,
+            "seconds": 435.433
+          }
+        },
+        "selfhost": "Stage0=stage1=stage2 byte-identical for both RC/Boehm, and both cross-compiler heap modes match",
+        "canonical_native_and_oracle": {
+          "pass": 154,
+          "total": 154
+        },
+        "aot": {
+          "passing_reports": 39,
+          "reports": 40,
+          "matching_retained_expressions": 98,
+          "retained_expressions": 99,
+          "baseline_regressions": 0
+        },
+        "tracked_sources_unchanged": true
+      }
+    },
+    {
+      "repository": "pyrex41/yggdrasil",
+      "run_id": 39170315011,
+      "commit": "0aa8947e22f54a83cda091d37782c923084c6d66",
+      "workflow": "go",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pyrex41/yggdrasil/actions/runs/39170315011",
+      "jobs": [
+        {
+          "name": "build-test (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run go build -o yggdrasil_bin ./...",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run go vet ./...",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "go test, and assert the skip count",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "targets smoke (no host needed)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "with a Shen stage-1 host",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "read the pinned shen-go SHA",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "check out the shen-go stage-1 host (pinned)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "build the shen-go stage-1 host",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "go test with a host, and assert the skip count",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "build-test (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run go build -o yggdrasil_bin ./...",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run go vet ./...",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "go test, and assert the skip count",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "targets smoke (no host needed)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "build-test (macos-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run go build -o yggdrasil_bin ./...",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run go vet ./...",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "go test, and assert the skip count",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "targets smoke (no host needed)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "pyrex41/yggdrasil",
+      "run_id": 39170315014,
+      "commit": "0aa8947e22f54a83cda091d37782c923084c6d66",
+      "workflow": "analysis-oracle",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pyrex41/yggdrasil/actions/runs/39170315014",
+      "jobs": [
+        {
+          "name": "oracle",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "read the pinned shen-go SHA",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "install souffle",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "check out and build the shen-go stage-1 host (pinned)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "build the CLI",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "rules vs shake, every fixture",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "verified_log_summary": {
+        "fixtures": 26,
+        "engines": [
+          "Shen shaker",
+          "Souffle 2.5",
+          "Python reference evaluator"
+        ],
+        "metadata_introspection": {
+          "status": "PASS",
+          "reachable_defuns": 560
+        }
+      }
+    },
+    {
+      "repository": "pyrex41/yggdrasil",
+      "run_id": 39170314972,
+      "commit": "0aa8947e22f54a83cda091d37782c923084c6d66",
+      "workflow": "shen-c-native-rc",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pyrex41/yggdrasil/actions/runs/39170314972",
+      "jobs": [
+        {
+          "name": "native-manifest (macos-latest, clang, ar)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Read the stage-1 host pin for this kernel",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build pinned stage-1 host",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test native manifest and dynamic-load dependency closure",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "native-manifest (ubuntu-latest, clang-18, llvm-ar-18)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Read the stage-1 host pin for this kernel",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build pinned stage-1 host",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test native manifest and dynamic-load dependency closure",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "pyrex41/bifrost",
+      "run_id": 39169931002,
+      "commit": "c9781115c9e50f2a79ba23f55675c81ae03a76a6",
+      "workflow": "shen-c-native-rc",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pyrex41/bifrost/actions/runs/39169931002",
+      "jobs": [
+        {
+          "name": "adapter (macos-latest, clang, ar)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Verify native C toolchain",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build released native RC CLI",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test adapter and supported live controls",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "adapter (ubuntu-latest, clang-18, llvm-ar-18)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Verify native C toolchain",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build released native RC CLI",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test adapter and supported live controls",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "pyrex41/bifrost",
+      "run_id": 39169930977,
+      "commit": "c9781115c9e50f2a79ba23f55675c81ae03a76a6",
+      "workflow": "portability",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pyrex41/bifrost/actions/runs/39169930977",
+      "jobs": [
+        {
+          "name": "helpers (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Go portability and CLI tests",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build CLI",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "helpers (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Go portability and CLI tests",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build CLI",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "helpers (macos-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Go portability and CLI tests",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build CLI",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "pyrex41/bifrost",
+      "run_id": 39169930963,
+      "commit": "c9781115c9e50f2a79ba23f55675c81ae03a76a6",
+      "workflow": "go",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pyrex41/bifrost/actions/runs/39169930963",
+      "jobs": [
+        {
+          "name": "build-test (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Vet",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "CLI smoke (no ports needed)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "build-test (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Vet",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "CLI smoke (no ports needed)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "build-test (macos-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Vet",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "CLI smoke (no ports needed)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-go@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "pyrex41/bifrost",
+      "run_id": 39169930962,
+      "commit": "c9781115c9e50f2a79ba23f55675c81ae03a76a6",
+      "workflow": "bifrost-matrix",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pyrex41/bifrost/actions/runs/39169930962",
+      "jobs": [
+        {
+          "name": "matrix",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Set up Go",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build shen-go (best-effort)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Set up Node (for ShenScript)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build Bifrost",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Show what Bifrost can see",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run the Bifrost matrix (best-effort, skip-and-report missing impls)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Set up Node (for ShenScript)",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Set up Go",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

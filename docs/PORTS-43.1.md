@@ -36,10 +36,10 @@ ports pass the 154-assertion canonical suite. Joy, Odin, OCaml, Inets and
 Forth retain the explicit runtime limits below; source identity alone does
 not qualify those runtimes.
 
-| Port | Fork default / candidate | Verified status |
+| Port | Published revision | Verified status |
 |---|---|---|
 | [shen-c](https://github.com/pyrex41/shen-c) | User-owned | Excluded from agent writes |
-| [shen-cl](https://github.com/pyrex41/shen-cl) | master `d9890b7` | Published; canonical 154/154, full native suite; CI success |
+| [shen-cl](https://github.com/pyrex41/shen-cl) | master `caaf317` | Published; canonical 154/154, full native suite; CI success |
 | [shen-go](https://github.com/pyrex41/shen-go) | master `54c68db` | Published; canonical 154/154, KL certification and port checks |
 | [shen-erl](https://github.com/pyrex41/shen-erl) | master `dbe7bdf` | Published; canonical 154/154, Common Test 47/47 (Docker) |
 | [shen-rust](https://github.com/pyrex41/shen-rust) | main `ec950a0` | Published; canonical 154/154, workspace 242 pass, Clippy/format pass; CI success |
@@ -50,14 +50,14 @@ not qualify those runtimes.
 | [shen-julia](https://github.com/pyrex41/shen-julia) | main `99c717b` | Published; fresh canonical 154/154, numeric dictionary fixes; combined runner has two baseline failures |
 | [shen-truffle](https://github.com/pyrex41/shen-truffle) | master `29517d3` | Published; canonical 154/154, Maven 20/20; native-image untested |
 | [ShenScript](https://github.com/pyrex41/ShenScript) | master `a4619e2` | Published; canonical 154/154, backend 468, async reader regression |
-| [shen-llvm](https://github.com/pyrex41/shen-llvm) | master `0ecd549` | Published; Linux LLVM18 and LLVM20 sanitizer canonical 154/154; ownership checks pass; Darwin native selfhost stages 1/2 byte-identical (non-LTO); Linux RC sanitizer suite and stage-2 selfhost pass; Boehm/conformance CI running |
+| [shen-llvm](https://github.com/pyrex41/shen-llvm) | master `031cdb8` | Published; canonical 154/154; RC and Boehm each 181/181; selfhost fixpoints and cross-checks pass; 39 required AOT reports pass; CI success |
 | [shen-koka](https://github.com/pyrex41/shen-koka) | master `274432b` | Published; interpreter and native AOT each canonical 154/154; 387-step AOT build and seven runner checks pass |
 | [shen-odin](https://github.com/pyrex41/shen-odin) | main `6660379` | Published fixture; 23 release KL files byte-identical, no evaluator: runtime UNKNOWN |
 | [shen-ocaml](https://github.com/pyrex41/shen-ocaml) | main `786e5d8` | Published; native tests and AOT generation pass; canonical reader stalls on old and new baselines; legacy mixed-number equality gap |
 | [shen-inets](https://github.com/pyrex41/shen-inets) | main `ff13498` | Published experimental compiler: 23 release files, 1,116/1,116 defuns compile; Python subset 21 pass; HVM unqualified |
 | [shen-forth](https://github.com/pyrex41/shen-forth) | main `8fa11ff` | Published experimental interpreter; 112 focused assertions and launcher pass; canonical UNKNOWN at 1536 MiB RSS limit |
 
-[Bifrost](https://github.com/pyrex41/bifrost): all maintained adapters now target 43.1 in implementation `95da9f3` and latest published head `8ad96b9`.
+[Bifrost](https://github.com/pyrex41/bifrost): all maintained adapters now target 43.1 in implementation `95da9f3` and published head `c978111`.
 The eight-port matrix (CL, Go, Rust, Lua, Scheme, JS, Swift, Truffle) executes
 72 cases with no failures, with two known integer-precision divergences and
 two unmatched historical 42.2 version rows skipped. The CL/Erlang matrix
@@ -68,15 +68,26 @@ CL, freshly rebuilt Swift and Truffle has the same 71/1/0 result. Both runs
 skip two historical kernel rows; Julia, Swift and Truffle additionally skip
 the namespace capability cell. See the [final matrix receipts](evidence/ports-43.1/post-cleanup-matrix.json).
 
-[Yggdrasil](https://github.com/pyrex41/yggdrasil): published shared 43.1 kernel in `8705799`, latest receipt update `bf6d30c`; Lisp with Lua, Go
+[Yggdrasil](https://github.com/pyrex41/yggdrasil): published shared 43.1 kernel in `8705799`, final integration `0aa8947`; Lisp with Lua, Go
 and JS each passes all ten fixtures. Lisp with Scheme, Swift, Truffle, Rust and Julia each
 passes four fixtures including dictionaries and stdin. Julia uses its
 artifact builder's lib mode, omitting the registry's sysimage flag; per-program
-sysimage generation remains unqualified. The hosted Go suite
-passes 131 top-level tests across two runs, with one helper subprocess skip;
-the first run hit its short budget and the remainder passed in 843.898 seconds.
-The CI Go host pin is `acba88a`. Analysis-oracle and native-C integration CI
-and the long Go workflow all pass at this head. Erlang independently passes four fixture goldens in Docker; Joy passes its bounded sum artifact.
+sysimage generation remains unqualified. The final revision's fresh Go 1.27
+suite passes 129 top-level tests in 227.7 seconds, with three top-level skips
+and one subtest skip recorded in the [receipt](evidence/ports-43.1/yggdrasil-final-go.json).
+The two substantive environment skips subsequently pass with Node and the
+Shen-Go source checkout supplied, giving 131 top-level passes across these
+runs; the helper-process and unsupported KL stdin subtest skips remain.
+The CI Go host pin is `acba88a`. The final metadata fixture agrees between
+Lisp and Go, and the dynamic-load group passes all three subtests. The merge
+preserves the dynamic-load work already merged on the fork in PR #35.
+Real Souffle, the Python reference evaluator and Shen agree for all 26
+analysis fixtures, including metadata introspection, in
+[CI](https://github.com/pyrex41/yggdrasil/actions/runs/39170315014).
+Final hosted Go CI passes 131 top-level tests in 592.7 seconds with only the
+helper subprocess skipped. Native-C CI passes on Linux and macOS.
+Erlang independently passes four
+fixture goldens in Docker; Joy passes its bounded sum artifact.
 
 The local Bifrost/Yggdrasil commands now point at the qualified native builds.
 Their former Nix links and gcroots remain intact, with an installation receipt
@@ -85,12 +96,21 @@ have been made. Scheme's source build CI passes; its separate Pages deployment
 fails for lack of bot write permission, with a fix prepared only on the upgrade
 branch. Rust's format/version CI regression is fixed; its implementation run passes.
 Go's generated receipt is refreshed and CI passes; Rust, Lua, ShenScript,
-Truffle, Forth and Yggdrasil also pass at their latest checked revisions.
+Truffle and Forth also pass at their latest checked revisions.
 Bifrost passes all four workflows, including Linux/macOS native C adapter
 checks using Clang with LTO disabled. This checks adapter behavior and does
-not qualify C performance. LLVM passes the Linux 181-test RC sanitizer suite and stage-2 fixpoint;
-Boehm and AOT conformance checks continue at
-[0ecd549](https://github.com/pyrex41/shen-llvm/actions/runs/39167316331). Live default refs and CI
+not qualify C performance. LLVM's final Linux LLVM 20 CI passes both
+181-test RC sanitizer and Boehm suites, both stage-2 fixpoints, cross-checks,
+tracked-source cleanliness and canonical 154/154. Final Linux CI and fresh
+Darwin AOT qualification against final Yggdrasil both pass all 39 required
+reports and 98/99 retained expressions;
+the remaining report has a historical quoted-string compile limitation.
+These retained AOT expressions are separate from the 154 canonical assertions.
+See the [AOT receipt](evidence/ports-43.1/llvm-aot-43.1.json).
+The complete Linux pipeline passes at
+[`031cdb8`](https://github.com/pyrex41/shen-llvm/actions/runs/39170316619).
+All final LLVM, Yggdrasil and Bifrost workflow results are recorded in the
+[CI receipt](evidence/ports-43.1/final-ci.json). Live default refs and CI
 state are recorded in the [publication snapshot](evidence/ports-43.1/publication-snapshot.json)
 beside the [source audit](evidence/ports-43.1/source-audit.json).
 

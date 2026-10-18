@@ -1,0 +1,103 @@
+{
+  "argv": [
+    "go",
+    "test",
+    "-json",
+    "-count=1",
+    "./..."
+  ],
+  "cwd": "<projects>/yggdrasil-43.1-final",
+  "elapsed_seconds": 227.662,
+  "event_count": 4745,
+  "exit_code": 0,
+  "go_version": "go1.27 pinned nix store",
+  "helper_skip_count": 1,
+  "helper_skips": [
+    {
+      "output": "",
+      "package": "github.com/pyrex41/yggdrasil",
+      "test": "TestRunCaptureHelper"
+    }
+  ],
+  "log": "yggdrasil-final-go.jsonl.gz",
+  "package_totals": {
+    "fail": 0,
+    "packages": [
+      {
+        "action": "pass",
+        "elapsed": 226.127,
+        "package": "github.com/pyrex41/yggdrasil"
+      }
+    ],
+    "pass": 1
+  },
+  "skip_count": 4,
+  "skips": [
+    {
+      "output": "",
+      "package": "github.com/pyrex41/yggdrasil",
+      "test": "TestLowerCheckThreeWayParityPassesAndFails"
+    },
+    {
+      "output": "",
+      "package": "github.com/pyrex41/yggdrasil",
+      "test": "TestRunCaptureHelper"
+    },
+    {
+      "output": "",
+      "package": "github.com/pyrex41/yggdrasil",
+      "test": "TestBuildConditionalStepWithoutManifest"
+    },
+    {
+      "output": "",
+      "package": "github.com/pyrex41/yggdrasil",
+      "test": "TestTraceCheckFixtures/kl/stdin-sum"
+    }
+  ],
+  "timed_out": false,
+  "commit": "0aa8947e22f54a83cda091d37782c923084c6d66",
+  "top_level_tests": {
+    "pass": 129,
+    "skip": 3,
+    "fail": 0
+  },
+  "skip_boundary": "Three top-level skips: helper subprocess, missing YGGDRASIL_SHEN_GO_DIR for three-way lower parity, and missing Node for conditional-manifest test. One additional KL stdin-sum subtest reports stdin-appended-to-program. Focused follow-up covers the two substantive environment skips; actual Souffle checked separately in CI.",
+  "log_sha256": "9fad8fff299c8dc187a42a1cb49c51a6e17984976b61fc72931a4212c331ed9c",
+  "dynamic_load": {
+    "artifact": "yggdrasil-final-dynamic.log.gz",
+    "sha256": "7c413b193269ef4f025dc30cd2938ba7b13aae70c7a8b787912d69cbb0c8e5dc"
+  },
+  "metadata_go": {
+    "artifact": "yggdrasil-final-go.log.gz",
+    "sha256": "267be4812f4ff45c618d08bfc273688dfd104a06663bba1c779f511351d46a7a"
+  },
+  "metadata_lisp": {
+    "artifact": "yggdrasil-final-lisp.log.gz",
+    "sha256": "267be4812f4ff45c618d08bfc273688dfd104a06663bba1c779f511351d46a7a"
+  },
+  "environment_skip_followup": {
+    "tests": [
+      "TestLowerCheckThreeWayParityPassesAndFails",
+      "TestBuildConditionalStepWithoutManifest"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "elapsed_seconds": 9.097,
+    "environment": {
+      "go": "1.27.0",
+      "node": "22.23.3",
+      "YGGDRASIL_SHEN_GO_DIR": "shen-go@54c68db"
+    },
+    "artifact": "yggdrasil-final-environment-followup.jsonl.gz",
+    "sha256": "e793b30c1b8fa6ef199adeecf289d73dbc408039477695cdf0aa6f2bc4197f3e"
+  },
+  "hosted_ci": {
+    "url": "https://github.com/pyrex41/yggdrasil/actions/runs/39170315011",
+    "commit": "0aa8947e22f54a83cda091d37782c923084c6d66",
+    "status": "PASS",
+    "top_level_pass": 131,
+    "top_level_skip": 1,
+    "skip": "TestRunCaptureHelper",
+    "package_seconds": 592.654
+  }
+}
