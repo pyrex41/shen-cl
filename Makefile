@@ -57,6 +57,14 @@ CLISP=clisp
 ECL=ecl
 SBCL=sbcl
 
+# Control stack and heap baked into bin/sbcl/shen. SBCL's defaults (2MB
+# stack, 1GB heap on arm64/x86-64) run out on deep non-tail recursion, deep
+# typechecks and large list literals; exhausting either is a storage-condition
+# that trap-error cannot catch. The binary still accepts --control-stack-size
+# and --dynamic-space-size as its first arguments to override these.
+SbclControlStack=64MB
+SbclDynamicSpace=4GB
+
 ifeq ($(TRAVIS_OS_NAME),windows)
 	SBCL="$(SBCL_PATH)/sbcl.exe" --core "$(SBCL_PATH)/sbcl.core"
 endif
@@ -163,7 +171,7 @@ build-ecl:
 
 .PHONY: build-sbcl
 build-sbcl:
-	$(SBCL) --non-interactive --load boot.lsp
+	$(SBCL) --control-stack-size $(SbclControlStack) --dynamic-space-size $(SbclDynamicSpace) --non-interactive --load boot.lsp
 
 #
 # Test an implementation

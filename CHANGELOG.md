@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+
+- SBCL: build with a 64MB control stack and a 4GB heap instead of SBCL's
+  2MB and 1GB defaults, so deep non-tail recursion, deep typechecks and
+  large list literals no longer abort with an uncatchable
+  `Control stack exhausted`. The binary accepts `--control-stack-size` and
+  `--dynamic-space-size` to override both (#25).
+
 ## [3.2.0] - 2026-10-16
 
 ### Changed
