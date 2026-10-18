@@ -409,6 +409,46 @@ Any other form is returned unchanged."
       (let ((*print-readably* t) (*print-circle* t) (*print-pretty* nil))
         (dolist (form forms) (write form :stream out) (terpri out))))))
 
+;; SBCL on arm64 cannot assemble a function with more than about 1MiB of
+;; machine code: a PC-relative literal load overflows its 19-bit offset and
+;; the compiler signals a type error (issue #26). So on SBCL, eval-kl
+;; evaluates as SBCL's EVAL does -- applying a global function to its
+;; evaluated arguments, compiling anything else -- but compiles a form before
+;; running any of it, and runs a form that fails to compile in SBCL's
+;; interpreter instead. Only compilation is guarded: an error raised by the
+;; running code propagates once and unchanged, and side effects never repeat.
+#+sbcl
+(defun shen-cl.eval (form)
+  (cond ((or (atom form)
+             (eq (car form) 'quote)
+             (eq sb-ext:*evaluator-mode* :interpret))
+         (eval form))
+        ((and (symbolp (car form))
+              (fboundp (car form))
+              (not (macro-function (car form)))
+              (not (special-operator-p (car form))))
+         (apply (car form) (mapcar #'shen-cl.eval (cdr form))))
+        (t
+         ;; Hold back the compiler's diagnostics, so a failed compilation's
+         ;; "compilation unit aborted" report is not printed.
+         (let* ((diagnostics (make-string-output-stream))
+                (compiled (handler-case
+                              (let ((*error-output* diagnostics))
+                                (compile nil `(lambda () ,form)))
+                            (error () nil))))
+           (if compiled
+             (progn
+               (write-string (get-output-stream-string diagnostics) *error-output*)
+               (funcall compiled))
+             (let ((sb-ext:*evaluator-mode* :interpret))
+               (eval form)))))))
+
+#+sbcl
+(defun |eval-kl| (X)
+  ;; A DEFUN is compiled (or interpreted) along with its enclosing form.
+  (shen-cl.eval (shen-cl.bind-accessor-chains (|shen-cl.kl->lisp| x))))
+
+#-sbcl
 (defun |eval-kl| (X)
   (let ((e (eval (shen-cl.bind-accessor-chains (|shen-cl.kl->lisp| x)))))
     (if (and (consp x) (eq (car x) '|defun|))
