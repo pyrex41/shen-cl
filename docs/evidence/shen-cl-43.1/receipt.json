@@ -1,0 +1,42 @@
+{
+  "fetch.log": {
+    "original_sha256": "089792d84f15de65048c3f2c18665bb56200c34b8356d677bd66679212d85a77",
+    "published_sha256": "57ab28a554576d5d3c97af8be458b72ccba184791ba375e048557d31890d86cf"
+  },
+  "build-test-all.log": {
+    "original_sha256": "58812bc29b58195730e6d4193c0ad441cc42dce0704c6e6566330a063ef634a9",
+    "published_sha256": "27c5cad0c85c455be67afe366978254b1697d1273d2aaee8a916852cb4e2c0cc"
+  },
+  "bifrost-before.json": {
+    "original_sha256": "d742ad829813b4600f6c61f0e6cfa06381070fbf7e43f0ac3727e56903f40708",
+    "published_sha256": "d742ad829813b4600f6c61f0e6cfa06381070fbf7e43f0ac3727e56903f40708"
+  },
+  "bifrost-after.json": {
+    "original_sha256": "6ac75efa6a2678baff07c20a1186fb242c1642c2fc7bbbba1ae5442deac13ceb",
+    "published_sha256": "6ac75efa6a2678baff07c20a1186fb242c1642c2fc7bbbba1ae5442deac13ceb"
+  },
+  "stale-launcher-control.json": {
+    "original_sha256": "68ea0973404ee78571bdaa745f5bbd4760283d3767234858778fc9bd73ed43f6",
+    "published_sha256": "68ea0973404ee78571bdaa745f5bbd4760283d3767234858778fc9bd73ed43f6"
+  },
+  "qualification": {
+    "upstream_commit": "4844072dde0208c3e4b99dcbfea58e4fdfd812e8",
+    "kernel": "community43.1",
+    "kernel_archive_sha256": "900eedef44f440af78f9395ed06e689ce1604546fc309f5bc7c8bc84cc651920",
+    "bootstrap_source_sha256": "917349362aaab60b19cefc99e242ac28b4d95a23e364586f1549330b48536553",
+    "platform": "aarch64-darwin",
+    "sbcl": "2.6.7",
+    "kernel_tests": 154,
+    "kernel_failures": 0,
+    "port_assertions": 333,
+    "cli_checks": 20,
+    "extension_checks": 123,
+    "accessor_checks": 47,
+    "sha256_checks": 12,
+    "compiler_tests": "all passed",
+    "bifrost_executed_pass": 72,
+    "bifrost_unmatched_kernel_cases": 2,
+    "stale_launcher_control": "two expected failures",
+    "shen_binary_sha256": "5db51c1b9a6dee8fa4670d76d77fcad8d45821eb8caf9c9d84525745cd1973c4"
+  }
+}
