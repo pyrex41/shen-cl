@@ -250,9 +250,12 @@
     :epilogue-code '(|shen-cl.toplevel|))
   (si:quit))
 
+;; Keep the build's --control-stack-size and --dynamic-space-size (see
+;; SbclControlStack in the Makefile), but let the user override either one
+;; on the command line. All other arguments still reach the Shen launcher.
 #+sbcl
 (sb-ext:save-lisp-and-die
   executable-path
   :executable t
-  :save-runtime-options t
+  :save-runtime-options :accept-runtime-options
   :toplevel '|shen-cl.toplevel|)

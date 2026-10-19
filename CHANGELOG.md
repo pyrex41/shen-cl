@@ -10,6 +10,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Fixed
 
+- SBCL: build with a 64MB control stack and a 4GB heap instead of SBCL's
+  2MB and 1GB defaults, so deep non-tail recursion, deep typechecks and
+  large list literals no longer abort with an uncatchable
+  `Control stack exhausted`. The binary accepts `--control-stack-size` and
+  `--dynamic-space-size` to override both (#25).
 - SBCL: a toplevel form or function too large for SBCL's arm64 assembler
   (over about 1MiB of machine code; `The value -262145 is not of type
   (SIGNED-BYTE 19)`) now runs in SBCL's interpreter instead of aborting.

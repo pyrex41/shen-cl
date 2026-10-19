@@ -125,6 +125,20 @@ test_impl() { # IMPL
     assert_contains "script" "$out" "$impl: --help lists the script command"
   fi
 
+  # --- SBCL: build-time stack size, overridable at run time (issue #25) ---
+  # The image is saved with :accept-runtime-options, so the SBCL runtime
+  # removes --control-stack-size/--dynamic-space-size (and their values) from
+  # the arguments before the launcher sees them.
+  if [ "$impl" = "sbcl" ]; then
+    printf '(define build 0 -> [] N -> [N | (build (- N 1))])\n(output "DEEP=~A~%%" (length (build 100000)))' > "$tmp/deep.shen"
+    out="$(run_bounded 120 $bin script "$tmp/deep.shen" 2>&1)"
+    assert_contains "DEEP=100000" "$out" "$impl: 100000-deep non-tail recursion fits the default stack"
+    out="$(run_bounded 120 $bin --control-stack-size 1MB script "$tmp/deep.shen" 2>&1)"
+    assert_contains "Control stack exhausted" "$out" "$impl: --control-stack-size overrides the build default"
+    out="$(run_bounded 60 $bin --control-stack-size 128MB --dynamic-space-size 2GB script "$tmp/script.shen" alpha 2>&1)"
+    assert_contains "ARGV=[$tmp/script.shen alpha]" "$out" "$impl: runtime options do not reach *argv*"
+  fi
+
   # --- bad subcommand prints Invalid argument (DIVERGENCE: exit is 0) ---
   out="$(run_bounded 60 $bin no-such-cmd x 2>&1)"; ec=$?
   assert_contains "Invalid argument" "$out" "$impl: bad subcommand reports Invalid argument"

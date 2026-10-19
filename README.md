@@ -106,6 +106,12 @@ Running `shen --help` shows a full listing of command-line options:
 
 When starting Shen via `make`, command line arguments can be passed through like this: `make run-sbcl Args="eval -l init.shen -e (run)"`.
 
+The SBCL build has a 64MB control stack and a 4GB heap (`SbclControlStack`
+and `SbclDynamicSpace` in the Makefile). Override them at run time with SBCL's
+runtime options, e.g. `shen --control-stack-size 256MB --dynamic-space-size 8GB
+script big.shen`. The SBCL runtime takes these two options, with their values,
+from anywhere in the command line, so they never reach `*argv*`.
+
 ## Releasing
 
 Before tagging a release, update `*port*` in `src/primitives.lsp` and add a
