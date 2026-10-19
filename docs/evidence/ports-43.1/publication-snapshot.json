@@ -1,18 +1,18 @@
 {
-  "observed_at_utc": "2026-10-18T21:30:14.323243+00:00",
-  "scope": "Default refs and status rollups; CI absence/pending is not PASS",
+  "observed_at_utc": "2026-10-18T22:21:17.347863+00:00",
+  "scope": "Fork default refs observed live; CI rollups are separate from runtime qualification. Shen-C is user-owned.",
   "repositories": [
     {
       "name": "shen-c",
       "branch": "main",
-      "commit": "802e72483177ed1b7a5d311364770b0b4d490cab",
-      "ci_rollup": "NO_REPORTED_CHECKS",
+      "commit": "a2c4d7ee9e8f44205e4d1300f5c0b17b3cb62b3d",
+      "ci_rollup": "SUCCESS",
       "excluded_from_agent_changes": true
     },
     {
       "name": "shen-cl",
       "branch": "master",
-      "commit": "d9890b72e5d8d07a37452733b5f976e18db1c62b",
+      "commit": "caaf317b0005bf4bf75d93746e166817ad19e54c",
       "ci_rollup": "SUCCESS",
       "excluded_from_agent_changes": false
     },
@@ -89,8 +89,8 @@
     {
       "name": "shen-llvm",
       "branch": "master",
-      "commit": "0ecd5499f36fff58fe9251fd30058cce7928af4f",
-      "ci_rollup": "PENDING",
+      "commit": "031cdb853cb18c90c3effa3a2fafd8572c23f878",
+      "ci_rollup": "SUCCESS",
       "excluded_from_agent_changes": false
     },
     {
@@ -131,14 +131,14 @@
     {
       "name": "bifrost",
       "branch": "main",
-      "commit": "8ad96b9c1bed8aa14aa1a53a31e5a3bf8c7d911a",
+      "commit": "c9781115c9e50f2a79ba23f55675c81ae03a76a6",
       "ci_rollup": "SUCCESS",
       "excluded_from_agent_changes": false
     },
     {
       "name": "yggdrasil",
       "branch": "main",
-      "commit": "bf6d30ca26b60948d880697aa255d13a385067e6",
+      "commit": "0aa8947e22f54a83cda091d37782c923084c6d66",
       "ci_rollup": "SUCCESS",
       "excluded_from_agent_changes": false
     }

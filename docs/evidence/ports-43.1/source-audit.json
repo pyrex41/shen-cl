@@ -28,7 +28,7 @@
   },
   "checks": {
     "shen-cl": {
-      "commit": "d9890b72e5d8d07a37452733b5f976e18db1c62b",
+      "commit": "caaf317b0005bf4bf75d93746e166817ad19e54c",
       "source_origin": "tracked-release-with-local-cl-backend",
       "directory": "kernel/klambda",
       "missing": [],
@@ -158,7 +158,7 @@
       "release_files_byte_identical": true
     },
     "shen-llvm": {
-      "commit": "0ecd5499f36fff58fe9251fd30058cce7928af4f",
+      "commit": "031cdb853cb18c90c3effa3a2fafd8572c23f878",
       "source_origin": "tracked-vendored",
       "directory": "shen-native/vendor/S42/KLambda",
       "missing": [],

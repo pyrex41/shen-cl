@@ -1,0 +1,19 @@
+{
+  "llvm_commit": "031cdb853cb18c90c3effa3a2fafd8572c23f878",
+  "yggdrasil_commit": "0aa8947e22f54a83cda091d37782c923084c6d66",
+  "platform": "Darwin ARM64, LLVM20.1.8, Scheme0.52/Shen43.1 oracle",
+  "command": "tools/s42_coverage.py --jobs 2 --timeout 30 --output receipt.json",
+  "reports": 40,
+  "passing_reports": 39,
+  "matching_retained_expressions": 98,
+  "retained_expressions": 99,
+  "canonical_repl_tests": "154 cases; separate gate, not this AOT runner",
+  "limit": {
+    "report": "c-",
+    "status": "COMPILE-ERROR",
+    "cause": "Historical bootstrap quoted-string serialization limitation; same case outside prior34/35 baseline."
+  },
+  "regression_gate": "All39 passing AOT reports are now required, including all five new43.1 groups. No previous expected report removed.",
+  "artifact": "llvm-aot-43.1.json.gz",
+  "sha256": "a30c687278388edda366e02ddc94fefba816c01903acf1674a10dca7faae99cd"
+}
