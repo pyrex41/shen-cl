@@ -145,3 +145,35 @@
                  (shen::|err.vector| #() 99)))
          (setf (symbol-function 'shen::|value|) lookup
                (symbol-function 'shen::|<-vector|) read-vector)))"))
+
+\\ --- eval-kl: forms too large for SBCL's arm64 assembler (issue #26) ---
+\\ 400 rows of 50 calls on distinct symbols compile to over 1MiB of code;
+\\ SBCL/arm64 cannot assemble that, so eval-kl must interpret the form instead.
+\\ Elsewhere these just compile. ECL would hand the defun to its C compiler.
+(define err-test.big-row
+  R C -> (if (= C 50)
+             []
+             [cons [err-test.id (intern (cn "s" (str (+ C (* R 50)))))]
+                   (err-test.big-row R (+ C 1))]))
+(define err-test.big-rows
+  400 -> []
+  R -> [cons (err-test.big-row R 0) (err-test.big-rows (+ R 1))])
+(define err-test.id X -> X)
+(if (= (implementation) "SBCL")
+  (do (assert= "eval-kl runs a toplevel form too large to assemble" 400
+        (eval-kl [let (intern "Rows") (err-test.big-rows 0)
+                   [length (intern "Rows")]]))
+      (eval-kl [defun err-test.big [] (err-test.big-rows 0)])
+      (assert= "eval-kl defines a function too large to assemble" s19999
+        (hd (reverse (hd (reverse (err-test.big))))))
+      (assert= "the oversized function is still the global definition" 400
+        (length (err-test.big))))
+  skip)
+
+\\ A toplevel form's side effects run once even when its code then fails.
+(set err-test.*runs* 0)
+(assert= "a failing toplevel form runs its side effects once" [caught 1]
+  [(trap-error (eval-kl [do [set err-test.*runs* [+ 1 [value err-test.*runs*]]]
+                            [simple-error "boom"]])
+               (/. E caught))
+   (value err-test.*runs*)])
