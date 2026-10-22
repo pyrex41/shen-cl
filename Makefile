@@ -73,10 +73,10 @@ endif
 # Set shared variables
 #
 
-KernelVersion=43.1
+KernelVersion=43.1-ec16a9f
 
-UrlRoot=https://github.com/Shen-Language/shen-sources/releases/download
-KernelTag=shen-$(KernelVersion)
+UrlRoot=https://github.com/pyrex41/shen-sources/releases/download
+KernelTag=upstream-ec16a9f
 KernelFolderName=ShenOSKernel-$(KernelVersion)
 KernelArchiveName=$(KernelFolderName)$(ArchiveSuffix)
 KernelArchiveUrl=$(UrlRoot)/$(KernelTag)/$(KernelArchiveName)

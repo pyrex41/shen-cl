@@ -8,6 +8,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+
+- Kernel: ShenOSKernel 43.1 as built at upstream Shen-Language/shen-sources
+  `ec16a9f`, the 43.1 release plus shen-sources#117. The type checker now
+  dereferences the checked term once per `shen.by-hypothesis` /
+  `shen.search-user-datatypes` call instead of once per hypothesis or
+  datatype rule (b-typed: about -40% instructions). `make fetch` downloads
+  `ShenOSKernel-43.1-ec16a9f.tar.gz` from pyrex41/shen-sources release
+  `upstream-ec16a9f` and verifies SHA-256
+  `060066a8f84d9a2f7d41cb3b37b986a8d4653279752b739b5063cd648d9baacd`.
+  `(version)` is still `"43.1"`.
+
 ### Fixed
 
 - SBCL: build with a 64MB control stack and a 4GB heap instead of SBCL's
