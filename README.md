@@ -69,8 +69,10 @@ The `Makefile` automates all build and test operations.
 
 `X` can be `clisp`, `ccl`, `ecl`, `sbcl` or it can be `all`, which will run the command for all of the preceding.
 
-`fetch` downloads the kernel from
+`fetch` downloads the kernel, a build of
 [Shen-Language/shen-sources](https://github.com/Shen-Language/shen-sources)
+at upstream `ec16a9f` (the 43.1 release plus shen-sources#117) published on
+[pyrex41/shen-sources](https://github.com/pyrex41/shen-sources/releases/tag/upstream-ec16a9f),
 and extracts it unmodified as `kernel/`. The release and checksum are pinned
 in [scripts/fetch-kernel.sh](scripts/fetch-kernel.sh). To build offline, pass
 a matching release tarball: `make fetch KERNEL_ARCHIVE=path/to/kernel.tar.gz`.

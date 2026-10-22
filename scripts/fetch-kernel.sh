@@ -10,12 +10,15 @@
 # verified.
 set -euo pipefail
 
-KERNEL_VERSION="43.1"
-KERNEL_TAG="shen-${KERNEL_VERSION}"
-KERNEL_SHA256="900eedef44f440af78f9395ed06e689ce1604546fc309f5bc7c8bc84cc651920"
+# ShenOSKernel 43.1 as built at upstream Shen-Language/shen-sources ec16a9f
+# (the 43.1 release plus shen-sources#117); unmodified upstream sources,
+# published as a build on pyrex41/shen-sources. (version) is still "43.1".
+KERNEL_VERSION="43.1-ec16a9f"
+KERNEL_TAG="upstream-ec16a9f"
+KERNEL_SHA256="060066a8f84d9a2f7d41cb3b37b986a8d4653279752b739b5063cd648d9baacd"
 KERNEL_FOLDER="ShenOSKernel-${KERNEL_VERSION}"
 KERNEL_ARCHIVE="${KERNEL_FOLDER}.tar.gz"
-KERNEL_URL="https://github.com/Shen-Language/shen-sources/releases/download/${KERNEL_TAG}/${KERNEL_ARCHIVE}"
+KERNEL_URL="https://github.com/pyrex41/shen-sources/releases/download/${KERNEL_TAG}/${KERNEL_ARCHIVE}"
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 WORK="$(mktemp -d)"
