@@ -177,3 +177,14 @@
                             [simple-error "boom"]])
                (/. E caught))
    (value err-test.*runs*)])
+
+\\ A successful SBCL compile of a constant-foldable form must not leak the
+\\ compiler's notes ("deleting unreachable code") to stderr.
+(if (= (implementation) "SBCL")
+  (assert= "eval of a constant-foldable form is quiet on stderr" ["" a]
+    (prim-test.host
+      "(let* ((err (make-string-output-stream))
+              (result (let ((*error-output* err))
+                        (shen::shen-cl.eval '(if t 'shen::|a| 'shen::|b|)))))
+         (list (get-output-stream-string err) result))"))
+  skip)
