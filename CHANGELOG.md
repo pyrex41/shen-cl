@@ -10,15 +10,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Changed
 
-- Kernel: ShenOSKernel 43.1 as built at upstream Shen-Language/shen-sources
-  `ec16a9f`, the 43.1 release plus shen-sources#117. The type checker now
-  dereferences the checked term once per `shen.by-hypothesis` /
-  `shen.search-user-datatypes` call instead of once per hypothesis or
-  datatype rule (b-typed: about -40% instructions). `make fetch` downloads
-  `ShenOSKernel-43.1-ec16a9f.tar.gz` from pyrex41/shen-sources release
-  `upstream-ec16a9f` and verifies SHA-256
-  `060066a8f84d9a2f7d41cb3b37b986a8d4653279752b739b5063cd648d9baacd`.
-  `(version)` is still `"43.1"`.
+- Kernel: community ShenOSKernel 43.2 (Shen-Language/shen-sources release
+  `shen-43.2`, commit `e6947f507ebc`). `shen.by-hypothesis` and
+  `shen.search-user-datatypes` now guard an empty list via the new helpers
+  `shen.by-hypothesis-h` and `shen.search-user-datatypes-h`. `make fetch`
+  downloads `ShenOSKernel-43.2.tar.gz` from the upstream release and verifies
+  SHA-256 `23c71508f0de24785e1f127ea4fab440081904d81c463090bc642ee840417f32`.
+  `(version)` is now `"43.2"`.
 
 ### Fixed
 
