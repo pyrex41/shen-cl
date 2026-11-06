@@ -8,17 +8,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [3.2.1] - 2026-11-05
+
 ### Changed
 
-- Kernel: ShenOSKernel 43.1 as built at upstream Shen-Language/shen-sources
-  `ec16a9f`, the 43.1 release plus shen-sources#117. The type checker now
-  dereferences the checked term once per `shen.by-hypothesis` /
-  `shen.search-user-datatypes` call instead of once per hypothesis or
-  datatype rule (b-typed: about -40% instructions). `make fetch` downloads
-  `ShenOSKernel-43.1-ec16a9f.tar.gz` from pyrex41/shen-sources release
-  `upstream-ec16a9f` and verifies SHA-256
-  `060066a8f84d9a2f7d41cb3b37b986a8d4653279752b739b5063cd648d9baacd`.
-  `(version)` is still `"43.1"`.
+- Kernel: community ShenOSKernel 43.2 (Shen-Language/shen-sources release
+  `shen-43.2`, commit `e6947f507ebc`). `shen.by-hypothesis` and
+  `shen.search-user-datatypes` now guard an empty list via the new helpers
+  `shen.by-hypothesis-h` and `shen.search-user-datatypes-h`. `make fetch`
+  downloads `ShenOSKernel-43.2.tar.gz` from the upstream release and verifies
+  SHA-256 `23c71508f0de24785e1f127ea4fab440081904d81c463090bc642ee840417f32`.
+  `(version)` is now `"43.2"`. This is the kernel Yggdrasil v0.1.0 requires
+  of a stage-1 host.
 
 ### Fixed
 
@@ -32,6 +33,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
   (SIGNED-BYTE 19)`) now runs in SBCL's interpreter instead of aborting.
   `eval-kl` compiles a form before running any of it, so the fallback never
   repeats side effects or hides runtime errors (#26).
+- SBCL: `eval-kl` no longer prints SBCL compiler notes (such as "deleting
+  unreachable code" on constant-foldable forms) to stderr after a successful
+  compile.
 
 ## [3.2.0] - 2026-10-16
 
@@ -256,7 +260,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Cleaned up `backend.lsp`, as `backend.shen` was removed.
 - Expanded README.
 
-[Unreleased]: https://github.com/Shen-Language/shen-cl/compare/v3.2.0...HEAD
+[Unreleased]: https://github.com/Shen-Language/shen-cl/compare/v3.2.1...HEAD
+[3.2.1]: https://github.com/Shen-Language/shen-cl/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/Shen-Language/shen-cl/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/Shen-Language/shen-cl/compare/v3.0.3...v3.1.0
 [3.0.3]: https://github.com/Shen-Language/shen-cl/compare/v3.0.2...v3.0.3

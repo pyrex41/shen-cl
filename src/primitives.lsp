@@ -35,7 +35,7 @@
 ;; only the former exits on EOF.
 (defvar |shen-cl.in-repl?| nil)
 (defvar |*language*| "Common Lisp")
-(defvar |*port*| "3.2.0")
+(defvar |*port*| "3.2.1")
 (defvar |*porters*| "Mark Tarver, Robert Koeninger and Bruno Deferrari")
 
 #+clisp
@@ -434,7 +434,10 @@ Any other form is returned unchanged."
          (let* ((diagnostics (make-string-output-stream))
                 (compiled (handler-case
                               (let ((*error-output* diagnostics))
-                                (compile nil `(lambda () ,form)))
+                                ;; Notes (e.g. "deleting unreachable code" on
+                                ;; constant-foldable forms) are not wanted.
+                                (handler-bind ((sb-ext:compiler-note #'muffle-warning))
+                                  (compile nil `(lambda () ,form))))
                             (error () nil))))
            (if compiled
              (progn
