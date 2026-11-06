@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+
+- The REPL now ends the session at stdin EOF through its own read (the first
+  byte of a line), as Shen/JIT does, instead of exiting from inside
+  `read-byte` and `read-unit-string`. A program evaluated at the REPL that
+  reads `(stinput)` now sees what any program sees: `read-byte` returns -1,
+  and `read` and `lineread` raise "empty stream" (which `trap-error` can
+  catch). Previously each of these ended the REPL.
+
 ## [3.2.1] - 2026-11-05
 
 ### Known issues
