@@ -21,6 +21,15 @@
 \\ Exercise compiled functions with unknown argument types, so constant
 \\ folding cannot hide overflow, numeric conversion, or error paths.
 (define prim-test.host Code -> (eval-kl [lisp. Code]))
+\\ Quoted host data must retain structural equality inside a Boolean test.
+(assert= "host quoted-list equality" true
+  (prim-test.host "(|shen-cl.equal?| (list 1 2) (quote (1 2)))"))
+(assert= "host quoted-list equality in if" yes
+  (eval-kl [if [lisp. "(|shen-cl.equal?| (list 1 2) (quote (1 2)))"] yes no]))
+(assert= "host quoted-list equality reversed in if" yes
+  (eval-kl [if [lisp. "(|shen-cl.equal?| (quote (1 2)) (list 1 2))"] yes no]))
+(assert= "host quoted-string equality in if" yes
+  (eval-kl [if [lisp. "(|shen-cl.equal?| (copy-seq (quote c#34;abcc#34;)) (quote c#34;abcc#34;))"] yes no]))
 (define prim-test.host-type X -> (eval-kl [lisp.type-of X]))
 (define prim-test.add X Y -> (+ X Y))
 (define prim-test.subtract X Y -> (- X Y))
@@ -284,3 +293,10 @@
 
 \\ --- eval-kl (mirrors shen-go's TestEvalKL) ---
 (assert= "eval-kl builds + form" 7 (eval-kl (cons + (cons 3 (cons 4 ())))))
+
+\\ stlib's delete-file (Common Lisp branch) removes a file written by open.
+(let Out (open "tests/delete-file.tmp" out)
+     Closed (close Out)
+     Gone (delete-file "tests/delete-file.tmp")
+  (assert= "delete-file removes the file" true
+    (not (trap-error (do (open "tests/delete-file.tmp" in) true) (/. E false)))))

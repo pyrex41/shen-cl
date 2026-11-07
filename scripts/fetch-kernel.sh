@@ -10,11 +10,11 @@
 # verified.
 set -euo pipefail
 
-# Community ShenOSKernel 43.2 (Shen-Language/shen-sources release shen-43.2,
-# commit e6947f507ebc), unmodified.
-KERNEL_VERSION="43.2"
+# Community ShenOSKernel 43.4 (Shen-Language/shen-sources release shen-43.4,
+# commit f34b307b490880eedcfe1f5e5d3cc24ca3d2602e), unmodified.
+KERNEL_VERSION="43.4"
 KERNEL_TAG="shen-${KERNEL_VERSION}"
-KERNEL_SHA256="23c71508f0de24785e1f127ea4fab440081904d81c463090bc642ee840417f32"
+KERNEL_SHA256="15e7972e6bf0cd65d37c2eba85750b8839d2dbadda41027eae0c88e5017a2756"
 KERNEL_FOLDER="ShenOSKernel-${KERNEL_VERSION}"
 KERNEL_ARCHIVE="${KERNEL_FOLDER}.tar.gz"
 KERNEL_URL="https://github.com/Shen-Language/shen-sources/releases/download/${KERNEL_TAG}/${KERNEL_ARCHIVE}"
