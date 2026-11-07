@@ -91,6 +91,13 @@
          (history (|shen.update-history|)))
     (|shen.evaluate-lineread| lineread history |shen.*tc*|)))
 
+;; The stlib's delete-file reaches Common Lisp through lisp.delete-file, which
+;; names CL's DELETE-FILE and so ignores the directory set by cd. Resolve the
+;; path against *home-directory* as open does.
+(defun |delete-file| (string)
+  (delete-file (format nil "~A~A" |*home-directory*| string))
+  '())
+
 ;; Symbol equality is identity. Select the comparison before traversing;
 ;; the local macro shares the checked loop without a per-element dispatch.
 (defun |element?| (value list)

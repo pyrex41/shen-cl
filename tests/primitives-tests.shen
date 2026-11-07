@@ -293,3 +293,10 @@
 
 \\ --- eval-kl (mirrors shen-go's TestEvalKL) ---
 (assert= "eval-kl builds + form" 7 (eval-kl (cons + (cons 3 (cons 4 ())))))
+
+\\ stlib's delete-file (Common Lisp branch) removes a file written by open.
+(let Out (open "tests/delete-file.tmp" out)
+     Closed (close Out)
+     Gone (delete-file "tests/delete-file.tmp")
+  (assert= "delete-file removes the file" true
+    (not (trap-error (do (open "tests/delete-file.tmp" in) true) (/. E false)))))
