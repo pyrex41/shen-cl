@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [3.3.0] - 2026-11-09
+
+### Known issues
+
+- No Windows archive in this release. The 64MB control stack default does not
+  take effect on Windows, so deep non-tail recursion that fits on the other
+  platforms exhausts the stack there, and `make test-cli` fails.
+
 ### Changed
 
 - Kernel: community ShenOSKernel 43.4 (Shen-Language/shen-sources release
@@ -289,7 +297,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Cleaned up `backend.lsp`, as `backend.shen` was removed.
 - Expanded README.
 
-[Unreleased]: https://github.com/Shen-Language/shen-cl/compare/v3.2.1...HEAD
+[Unreleased]: https://github.com/pyrex41/shen-cl/compare/v3.3.0...HEAD
+[3.3.0]: https://github.com/pyrex41/shen-cl/compare/v3.2.1...v3.3.0
 [3.2.1]: https://github.com/pyrex41/shen-cl/compare/v3.0.4...v3.2.1
 [3.2.0]: https://github.com/Shen-Language/shen-cl/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/Shen-Language/shen-cl/compare/v3.0.3...v3.1.0
