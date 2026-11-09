@@ -10,12 +10,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Changed
 
+- Kernel: community ShenOSKernel 43.4 (Shen-Language/shen-sources release
+  `shen-43.4`, commit `f34b307b490880eedcfe1f5e5d3cc24ca3d2602e`). The kernel
+  and stlib are regenerated together. `make fetch` downloads
+  `ShenOSKernel-43.4.tar.gz` and verifies SHA-256
+  `15e7972e6bf0cd65d37c2eba85750b8839d2dbadda41027eae0c88e5017a2756`.
+  `(version)` is now `"43.4"`.
 - The REPL now ends the session at stdin EOF through its own read (the first
   byte of a line), as Shen/JIT does, instead of exiting from inside
   `read-byte` and `read-unit-string`. A program evaluated at the REPL that
   reads `(stinput)` now sees what any program sees: `read-byte` returns -1,
   and `read` and `lineread` raise "empty stream" (which `trap-error` can
   catch). Previously each of these ended the REPL.
+
+### Fixed
+
+- Raise a catchable error when an explicit `cond` has no matching clause.
+  Reported by @pyrex41.
+- Restrict quoted-data identity comparisons to symbols and the empty list;
+  retain structural equality for other quoted values.
+  Reported by @pyrex41.
 
 ## [3.2.1] - 2026-11-05
 

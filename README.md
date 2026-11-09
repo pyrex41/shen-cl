@@ -69,7 +69,7 @@ The `Makefile` automates all build and test operations.
 
 `X` can be `clisp`, `ccl`, `ecl`, `sbcl` or it can be `all`, which will run the command for all of the preceding.
 
-`fetch` downloads the 43.2 kernel release from
+`fetch` downloads the 43.4 kernel release from
 [Shen-Language/shen-sources](https://github.com/Shen-Language/shen-sources)
 and extracts it unmodified as `kernel/`. The release and checksum are pinned
 in [scripts/fetch-kernel.sh](scripts/fetch-kernel.sh). To build offline, pass
